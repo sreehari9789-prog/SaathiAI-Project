@@ -1,8 +1,8 @@
 /* Shared API client for every Saathi page.
    Change API_BASE if the backend runs somewhere other than localhost:4000. */
-const API_BASE = 'https://your-render-url-here.onrender.com/api';
+const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
   ? 'http://localhost:4000/api'
-  : 'https://saathiai-project.onrender.com/api'; // Render backend URL
+  : 'https://saathiai-project.onrender.com/api';
 
 const Saathi = {
   TOKEN_KEY: 'saathi_token',
