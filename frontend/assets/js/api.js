@@ -2,7 +2,7 @@
    Change API_BASE if the backend runs somewhere other than localhost:4000. */
 const API_BASE = 'https://your-render-url-here.onrender.com/api';
   ? 'http://localhost:4000/api'
-  : 'http://localhost:4000/api'; // same-origin deployments can swap this for a relative '/api'
+  : 'https://saathiai-project.onrender.com/api'; // Render backend URL
 
 const Saathi = {
   TOKEN_KEY: 'saathi_token',
