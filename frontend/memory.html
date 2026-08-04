@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Knowledge Memory — Saathi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>.tool-pills{ display:flex; flex-wrap:wrap; gap:8px; margin:18px 0 0; } .tool-pill{ font-family:'IBM Plex Mono',monospace; font-size:0.74rem; padding:6px 12px; border-radius:100px; border:1px solid var(--line); color:var(--steel); } .tool-pill.current{ background:var(--ink); color:var(--paper); border-color:var(--ink); }</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="brand"><span class="dot"></span> Saathi</a>
+  <button class="mobile-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  <nav id="mainNav">
+    <a href="index.html" data-page="index.html">Home</a>
+    <a href="assistant.html" data-page="assistant.html">Assistant</a>
+    <a href="dashboard.html" data-page="dashboard.html">Dashboard</a>
+  </nav>
+  <div class="nav-right" id="navRight"></div>
+</div>
+
+<main>
+<div class="page-hero">
+  <span class="tag-num">TOOL 01</span>
+  <h1>Knowledge Memory</h1>
+  <p>Speak a machine problem and how you fixed it. It gets saved so any worker can find the same fix later — even after you've moved on.</p>
+  <div class="tool-pills">
+    <span class="tool-pill current">Knowledge Memory</span>
+    <a href="workshare.html" class="tool-pill">AI WorkShare</a>
+    <a href="fairwage.html" class="tool-pill">FairWage</a>
+    <a href="safety.html" class="tool-pill">Safety Reporter</a>
+    <a href="grievance.html" class="tool-pill">Helpline</a>
+  </div>
+</div>
+
+<section class="section" style="border-top:none;">
+  <div class="grid-2">
+    <div class="card" data-tilt>
+      <h3>Save a new fix</h3>
+      <div class="tag-input">
+        <select id="machineTag">
+          <option>Cutting machine</option>
+          <option>Compressor</option>
+          <option>Loom</option>
+          <option>Motor</option>
+          <option>Boiler</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="field"><input type="text" id="memoryText" placeholder="Describe the problem and the fix…"></div>
+      <button class="mini" id="saveMemoryBtn">Save fix to memory</button>
+      <p class="form-error" id="saveError" style="margin-top:12px;"></p>
+    </div>
+
+    <div class="card" data-tilt>
+      <h3>Search past fixes</h3>
+      <div class="field inline">
+        <input type="text" id="searchText" placeholder="e.g. compressor noise, loom thread break…">
+        <button class="mini ghost" id="searchBtn">Search</button>
+      </div>
+      <div class="log-list" id="logList"><div class="empty-note">Loading…</div></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <span>SAATHI — MSME IDEA HACKATHON 6.0</span>
+  <span id="clock"></span>
+</footer>
+
+<script src="assets/js/api.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+saathiInitTilt("[data-tilt]", 6);
+saathiScrollReveal();
+
+const logList = document.getElementById('logList');
+
+function renderEntries(entries, isSearch){
+  if (!entries.length){
+    logList.innerHTML = '<div class="empty-note">No matching fixes found yet. Try a different word, or be the first to save one.</div>';
+    return;
+  }
+  logList.innerHTML = entries.map(e => `
+    <div class="log-entry${isSearch ? ' match' : ''}">
+      <div class="meta"><span class="chip">${e.tag}</span><span>${e.timeLabel}</span></div>
+      <p>${e.text}</p>
+    </div>`).join('');
+  try { gsap.from("#logList .log-entry", {opacity:0, y:10, duration:0.35, stagger:0.05}); } catch(e) {}
+}
+
+async function loadEntries(search){
+  try {
+    const data = await Saathi.get('/memory' + (search ? '?search=' + encodeURIComponent(search) : ''));
+    renderEntries(data.entries, !!search);
+  } catch (e) {
+    logList.innerHTML = `<div class="empty-note">${e.message}</div>`;
+  }
+}
+loadEntries();
+
+document.getElementById('searchBtn').addEventListener('click', () => loadEntries(document.getElementById('searchText').value.trim()));
+document.getElementById('searchText').addEventListener('keydown', (e) => { if (e.key === 'Enter') document.getElementById('searchBtn').click(); });
+
+document.getElementById('saveMemoryBtn').addEventListener('click', async () => {
+  const errBox = document.getElementById('saveError');
+  errBox.classList.remove('show');
+  if (!Saathi.isLoggedIn()){
+    errBox.textContent = 'Log in to save a fix to memory.';
+    errBox.classList.add('show');
+    return;
+  }
+  const text = document.getElementById('memoryText').value.trim();
+  const tag = document.getElementById('machineTag').value;
+  if (!text) return;
+  try {
+    await Saathi.post('/memory', { tag, text });
+    document.getElementById('memoryText').value = "";
+    loadEntries();
+  } catch (e) {
+    errBox.textContent = e.message;
+    errBox.classList.add('show');
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "name": "saathi-frontend",
+  "version": "1.0.0",
+  "description": "Saathi frontend — static multi-page site, served by a zero-dependency Node static server.",
+  "main": "serve.js",
+  "scripts": {
+    "start": "node serve.js"
+  },
+  "engines": { "node": ">=16" }
+}

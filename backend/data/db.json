@@ -1,0 +1,211 @@
+{
+  "users": [
+    {
+      "id": "u_msepr5uiihpy2o",
+      "name": "SREEHARI M",
+      "phone": "9790128176",
+      "passwordHash": "97e9484a1030d22eff1ad9df8ac3cbc8:1aa17c5ea608c0fbecae5e1f698433834a9b7098d5a4fef2d081899282ddd6c63fd984a0669076c41f6b184869d63d89eee34d33db14830793f68363e227d09c",
+      "role": "worker",
+      "unit": "unit a",
+      "createdAt": "2026-08-04T13:48:19.769Z"
+    }
+  ],
+  "memory": [
+    {
+      "id": "m_mseprrtecrqo2a",
+      "userId": "u_msepr5uiihpy2o",
+      "tag": "General",
+      "text": "Vanakkam.",
+      "unit": "unit a",
+      "time": "2026-08-04T13:48:48.146Z"
+    },
+    {
+      "id": "m_mseppm16warpyy",
+      "userId": null,
+      "tag": "General",
+      "text": "எனக்கு.",
+      "unit": "Guest",
+      "time": "2026-08-04T13:47:07.338Z"
+    },
+    {
+      "id": "m_msepoud2qlcort",
+      "userId": null,
+      "tag": "General",
+      "text": "I'm searching for a walk today evening in stitching.",
+      "unit": "Guest",
+      "time": "2026-08-04T13:46:31.478Z"
+    },
+    {
+      "id": "m_msep9ugtt29kq5",
+      "userId": null,
+      "tag": "General",
+      "text": "எனக்கு இரவு.",
+      "unit": "Guest",
+      "time": "2026-08-04T13:34:51.773Z"
+    },
+    {
+      "id": "m_msep9go4lga33d",
+      "userId": null,
+      "tag": "General",
+      "text": "நீங்கள் சொன்னதை அறிவு நினைவகத்தில் புது திரும்ப சேமித்துள்ளேன்.",
+      "unit": "Guest",
+      "time": "2026-08-04T13:34:33.892Z"
+    },
+    {
+      "id": "m_msep99x8k4a0kt",
+      "userId": null,
+      "tag": "General",
+      "text": "हिंदीला पैसे दे एफ डी एफ डी सुब्रा पण सांगितले ते मी ते.",
+      "unit": "Guest",
+      "time": "2026-08-04T13:34:25.148Z"
+    },
+    {
+      "id": "m_msep91ud6ym2s5",
+      "userId": null,
+      "tag": "General",
+      "text": "नमस्कार.",
+      "unit": "Guest",
+      "time": "2026-08-04T13:34:14.677Z"
+    },
+    {
+      "id": "m_msep89cqum4vde",
+      "userId": null,
+      "tag": "General",
+      "text": "எனக்கு இட்லி வேணும்.",
+      "unit": "Guest",
+      "time": "2026-08-04T13:33:37.754Z"
+    },
+    {
+      "id": "m1",
+      "userId": null,
+      "tag": "Compressor",
+      "text": "Hissing sound near the second valve joint, tightened the fitting and the leak stopped.",
+      "unit": "Unit A",
+      "time": "2026-08-02T13:30:40.536Z"
+    },
+    {
+      "id": "m2",
+      "userId": null,
+      "tag": "Loom",
+      "text": "Thread kept snapping on the left side, tension screw was too tight, loosened it half a turn.",
+      "unit": "Unit B",
+      "time": "2026-07-30T13:30:40.537Z"
+    },
+    {
+      "id": "m3",
+      "userId": null,
+      "tag": "Motor",
+      "text": "Motor was overheating after lunch break, cleaned the vents, was full of dust.",
+      "unit": "Unit A",
+      "time": "2026-07-28T13:30:40.537Z"
+    }
+  ],
+  "workshareTasks": [
+    {
+      "id": "t1",
+      "unit": "Unit B",
+      "dist": "2 km away",
+      "task": "Need 2 workers for packing, tomorrow morning, 4 hours",
+      "skill": "packing"
+    },
+    {
+      "id": "t2",
+      "unit": "Unit D",
+      "dist": "3.5 km away",
+      "task": "Stitching help needed for 2 days, festival order",
+      "skill": "stitching weaving"
+    },
+    {
+      "id": "t3",
+      "unit": "Unit A",
+      "dist": "1 km away",
+      "task": "Loading and unloading a truck, this evening, urgent",
+      "skill": "loading"
+    },
+    {
+      "id": "t4",
+      "unit": "Unit C",
+      "dist": "4 km away",
+      "task": "Machine operator needed for one week, cutting section",
+      "skill": "cutting machine"
+    },
+    {
+      "id": "t5",
+      "unit": "Unit E",
+      "dist": "2.8 km away",
+      "task": "General cleaning help needed, half day",
+      "skill": "cleaning"
+    }
+  ],
+  "workshareRequests": [],
+  "employerJobs": [],
+  "problems": [
+    {
+      "id": "p1",
+      "userId": null,
+      "problem": "Loom thread keeps snapping on the left side during weaving",
+      "solution": "Check the tension screw...",
+      "tag": "Loom",
+      "unit": "Unit A",
+      "time": "2026-08-03T13:30:40.537Z"
+    },
+    {
+      "id": "p2",
+      "userId": null,
+      "problem": "Motor vibrating a lot",
+      "solution": "Check motor mounts and bearing condition.",
+      "tag": "Motor",
+      "unit": "Unit C",
+      "time": "2026-08-01T13:30:40.537Z"
+    },
+    {
+      "id": "p3",
+      "userId": null,
+      "problem": "Machine oil leaking",
+      "solution": "Tighten the valve fittings or replace gaskets.",
+      "tag": "General",
+      "unit": "Unit B",
+      "time": "2026-07-29T13:30:40.537Z"
+    }
+  ],
+  "fairwageRates": {
+    "cutting": 55,
+    "welding": 70,
+    "weaving": 60,
+    "packing": 45,
+    "loading": 50,
+    "machine operating": 65,
+    "cleaning": 40,
+    "stitching": 50,
+    "assembly line": 60,
+    "fabrication": 75,
+    "quality checking": 55,
+    "handloom weaving": 70,
+    "handicraft": 60,
+    "village industry": 50,
+    "painting": 55,
+    "carpentry": 65,
+    "plumbing": 60,
+    "electrical": 70,
+    "masonry": 65,
+    "gardening": 40,
+    "cooking": 45,
+    "driving": 55,
+    "security": 45,
+    "tailoring": 55
+  },
+  "fairwageEstimates": [],
+  "safetyReports": [
+    {
+      "id": "s1",
+      "userId": null,
+      "machine": "Boiler",
+      "description": "Pressure gauge needle sticking, flagged for maintenance before next shift.",
+      "severity": "medium",
+      "unit": "Unit A",
+      "time": "2026-08-03T13:30:40.537Z",
+      "status": "open"
+    }
+  ],
+  "grievances": []
+}

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Helpline — Saathi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>.tool-pills{ display:flex; flex-wrap:wrap; gap:8px; margin:18px 0 0; } .tool-pill{ font-family:'IBM Plex Mono',monospace; font-size:0.74rem; padding:6px 12px; border-radius:100px; border:1px solid var(--line); color:var(--steel); } .tool-pill.current{ background:var(--ink); color:var(--paper); border-color:var(--ink); }</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="brand"><span class="dot"></span> Saathi</a>
+  <button class="mobile-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  <nav id="mainNav">
+    <a href="index.html" data-page="index.html">Home</a>
+    <a href="assistant.html" data-page="assistant.html">Assistant</a>
+    <a href="dashboard.html" data-page="dashboard.html">Dashboard</a>
+  </nav>
+  <div class="nav-right" id="navRight"></div>
+</div>
+
+<main>
+<div class="page-hero">
+  <span class="tag-num">TOOL 05 · NEW</span>
+  <h1>Helpline</h1>
+  <p>Raise a concern about pay, treatment, or a workplace dispute — in your own words, spoken or typed. Entries are only visible to you and the helpline reviewer.</p>
+  <div class="tool-pills">
+    <a href="memory.html" class="tool-pill">Knowledge Memory</a>
+    <a href="workshare.html" class="tool-pill">AI WorkShare</a>
+    <a href="fairwage.html" class="tool-pill">FairWage</a>
+    <a href="safety.html" class="tool-pill">Safety Reporter</a>
+    <span class="tool-pill current">Helpline</span>
+  </div>
+</div>
+
+<section class="section" style="border-top:none;">
+  <div class="grid-2">
+    <div class="card" data-tilt>
+      <h3>Raise a concern</h3>
+      <div class="tag-input">
+        <select id="categorySelect">
+          <option value="wages">Wages / non-payment</option>
+          <option value="treatment">Unfair treatment</option>
+          <option value="harassment">Harassment</option>
+          <option value="dispute">Dispute with employer</option>
+          <option value="general">Something else</option>
+        </select>
+      </div>
+      <div class="field"><textarea id="grievanceText" placeholder="Describe what happened…"></textarea></div>
+      <button class="mini" id="submitGrievanceBtn">Submit confidentially</button>
+      <p class="form-error" id="grievanceError" style="margin-top:12px;"></p>
+      <p class="form-success" id="grievanceSuccess" style="margin-top:12px;"></p>
+    </div>
+
+    <div class="card" data-tilt>
+      <h3>Your submissions</h3>
+      <div class="log-list" id="grievanceList"><div class="empty-note">Log in to see your submissions.</div></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <span>SAATHI — MSME IDEA HACKATHON 6.0</span>
+  <span id="clock"></span>
+</footer>
+
+<script src="assets/js/api.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+saathiInitTilt("[data-tilt]", 6);
+saathiScrollReveal();
+
+const grievanceList = document.getElementById('grievanceList');
+
+function renderGrievances(list){
+  if (!list.length){
+    grievanceList.innerHTML = '<div class="empty-note">Nothing submitted yet.</div>';
+    return;
+  }
+  grievanceList.innerHTML = list.map(g => `
+    <div class="log-entry">
+      <div class="meta"><span class="chip">${g.category}</span><span>${g.timeLabel}</span></div>
+      <p>${g.description}</p>
+    </div>`).join('');
+  try { gsap.from("#grievanceList .log-entry", {opacity:0, y:10, duration:0.35, stagger:0.05}); } catch(e) {}
+}
+
+async function loadGrievances(){
+  if (!Saathi.isLoggedIn()) return;
+  try {
+    const data = await Saathi.get('/grievance/mine');
+    renderGrievances(data.grievances);
+  } catch (e) { grievanceList.innerHTML = `<div class="empty-note">${e.message}</div>`; }
+}
+loadGrievances();
+
+document.getElementById('submitGrievanceBtn').addEventListener('click', async () => {
+  const errBox = document.getElementById('grievanceError');
+  const okBox = document.getElementById('grievanceSuccess');
+  errBox.classList.remove('show'); okBox.classList.remove('show');
+  if (!Saathi.isLoggedIn()){
+    errBox.textContent = 'Log in to submit a confidential entry.';
+    errBox.classList.add('show');
+    return;
+  }
+  const description = document.getElementById('grievanceText').value.trim();
+  if (!description) return;
+  const category = document.getElementById('categorySelect').value;
+  try {
+    await Saathi.post('/grievance/submit', { category, description });
+    document.getElementById('grievanceText').value = "";
+    okBox.textContent = 'Submitted confidentially. Only the helpline reviewer can see this.';
+    okBox.classList.add('show');
+    loadGrievances();
+  } catch (e) {
+    errBox.textContent = e.message;
+    errBox.classList.add('show');
+  }
+});
+</script>
+</body>
+</html>

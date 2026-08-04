@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FairWage Estimator — Saathi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>.tool-pills{ display:flex; flex-wrap:wrap; gap:8px; margin:18px 0 0; } .tool-pill{ font-family:'IBM Plex Mono',monospace; font-size:0.74rem; padding:6px 12px; border-radius:100px; border:1px solid var(--line); color:var(--steel); } .tool-pill.current{ background:var(--ink); color:var(--paper); border-color:var(--ink); }</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="brand"><span class="dot"></span> Saathi</a>
+  <button class="mobile-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  <nav id="mainNav">
+    <a href="index.html" data-page="index.html">Home</a>
+    <a href="assistant.html" data-page="assistant.html">Assistant</a>
+    <a href="dashboard.html" data-page="dashboard.html">Dashboard</a>
+  </nav>
+  <div class="nav-right" id="navRight"></div>
+</div>
+
+<main>
+<div class="page-hero">
+  <span class="tag-num">TOOL 03</span>
+  <h1>FairWage Estimator</h1>
+  <p>Describe the task and hours worked. Get an estimated fair wage range for the worker and the total cost for the employer — advisory only, in plain numbers.</p>
+  <div class="tool-pills">
+    <a href="memory.html" class="tool-pill">Knowledge Memory</a>
+    <a href="workshare.html" class="tool-pill">AI WorkShare</a>
+    <span class="tool-pill current">FairWage</span>
+    <a href="safety.html" class="tool-pill">Safety Reporter</a>
+    <a href="grievance.html" class="tool-pill">Helpline</a>
+  </div>
+</div>
+
+<section class="section" style="border-top:none;">
+  <div class="card" data-tilt style="max-width:640px;">
+    <h3>Describe the task</h3>
+    <div class="tag-input" style="flex-direction:column; gap:10px;">
+      <select id="workerCategory" style="padding:9px 10px;border-radius:8px;border:1px solid var(--line);width:100%;font-family:inherit;font-size:inherit;">
+        <option value="manufacturing">Manufacturing Workers (assembly line, fabricator, machine operator, quality checker)</option>
+        <option value="artisans">Artisans (handloom weaver, handicraft maker, village industry)</option>
+        <option value="standard">Standard (cutting, welding, weaving, packing, loading, cleaning, stitching)</option>
+        <option value="other">Other (painting, carpentry, plumbing, electrical, masonry, etc.)</option>
+      </select>
+      <div style="display:flex; gap:10px; width:100%;">
+        <select id="taskType" style="padding:9px 10px;border-radius:8px;border:1px solid var(--line);flex:1;font-family:inherit;font-size:inherit;">
+          <option value="cutting">Cutting</option>
+          <option value="welding">Welding</option>
+          <option value="weaving">Weaving</option>
+          <option value="packing">Packing</option>
+          <option value="loading">Loading / material handling</option>
+          <option value="machine operating">Machine operating</option>
+          <option value="cleaning">Cleaning</option>
+        </select>
+        <input type="text" id="hoursInput" placeholder="Hours (e.g. 8)" style="width:120px;padding:9px 10px;border-radius:8px;border:1px solid var(--line);font-family:inherit;font-size:inherit;">
+        <select id="wagePeriod" style="padding:9px 10px;border-radius:8px;border:1px solid var(--line);flex:1;font-family:inherit;font-size:inherit;">
+          <option value="daily">Daily (8 hrs)</option>
+          <option value="weekly">Weekly (48 hrs)</option>
+          <option value="monthly">Monthly (208 hrs)</option>
+        </select>
+      </div>
+    </div>
+    <button class="mini" id="calcWageBtn">Calculate estimate</button>
+
+    <div class="wage-result" id="wageResult" style="display:none;">
+      <div class="wage-box"><div class="label">Worker's fair wage</div><div class="value" id="workerWage">—</div></div>
+      <div class="wage-box"><div class="label">Employer's total cost</div><div class="value" id="employerCost">—</div></div>
+    </div>
+    <div class="disclaimer">This is an estimated, advisory figure based on typical task rates. It is not a legally binding wage calculation.</div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <span>SAATHI — MSME IDEA HACKATHON 6.0</span>
+  <span id="clock"></span>
+</footer>
+
+<script src="assets/js/api.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+saathiInitTilt("[data-tilt]", 6);
+saathiScrollReveal();
+
+document.getElementById('calcWageBtn').addEventListener('click', async () => {
+  const category = document.getElementById('workerCategory').value;
+  const type = document.getElementById('taskType').value;
+  const hours = parseFloat(document.getElementById('hoursInput').value) || 8;
+  const period = document.getElementById('wagePeriod').value;
+  try {
+    const data = await Saathi.post('/fairwage/estimate', { type, hours, period, category });
+    document.getElementById('workerWage').textContent = `₹${data.result.wageLow} – ₹${data.result.wageHigh} (${period})`;
+    document.getElementById('employerCost').textContent = `₹${data.result.employerCost} (${period})`;
+    const box = document.getElementById('wageResult');
+    box.style.display = 'grid';
+    try { gsap.fromTo(box.children, {opacity:0, y:14, rotationX:-20}, {opacity:1, y:0, rotationX:0, duration:0.5, stagger:0.08, transformPerspective:600}); } catch(e) {}
+  } catch (e) { alert(e.message); }
+});
+</script>
+</body>
+</html>

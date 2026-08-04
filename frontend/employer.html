@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Employer Dashboard — Saathi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>.tool-pills{ display:flex; flex-wrap:wrap; gap:8px; margin:18px 0 0; } .tool-pill{ font-family:'IBM Plex Mono',monospace; font-size:0.74rem; padding:6px 12px; border-radius:100px; border:1px solid var(--line); color:var(--steel); } .tool-pill.current{ background:var(--ink); color:var(--paper); border-color:var(--ink); }</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="brand"><span class="dot"></span> Saathi</a>
+  <button class="mobile-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  <nav id="mainNav">
+    <a href="index.html" data-page="index.html">Home</a>
+    <a href="assistant.html" data-page="assistant.html">Assistant</a>
+    <a href="dashboard.html" data-page="dashboard.html">Dashboard</a>
+  </nav>
+  <div class="nav-right" id="navRight"></div>
+</div>
+
+<main id="mainContent">
+<div class="page-hero">
+  <span class="tag-num">TOOL</span>
+  <h1>Employer Dashboard</h1>
+  <p>Post job requirements and find skilled workers from nearby MSME units for short-term tasks.</p>
+  <div class="tool-pills">
+    <a href="memory.html" class="tool-pill">Knowledge Memory</a>
+    <a href="workshare.html" class="tool-pill">AI WorkShare</a>
+    <a href="fairwage.html" class="tool-pill">FairWage</a>
+    <a href="safety.html" class="tool-pill">Safety Reporter</a>
+    <a href="grievance.html" class="tool-pill">Helpline</a>
+    <a href="problemshare.html" class="tool-pill">ProblemShare</a>
+    <span class="tool-pill current">Employer Dashboard</span>
+  </div>
+</div>
+
+<section class="section" style="border-top:none;">
+  <div class="grid-2">
+    <div class="card" data-tilt>
+      <h3>Post a Job</h3>
+      <div class="field">
+        <label>Task Description</label>
+        <input type="text" id="jobTask" placeholder="e.g. Need 2 workers for packing, tomorrow morning">
+      </div>
+      <div class="field">
+        <label>Required Skill</label>
+        <select id="jobSkill">
+          <option value="packing">packing</option>
+          <option value="stitching">stitching</option>
+          <option value="cutting">cutting</option>
+          <option value="welding">welding</option>
+          <option value="loading">loading</option>
+          <option value="cleaning">cleaning</option>
+          <option value="machine operating">machine operating</option>
+          <option value="weaving">weaving</option>
+          <option value="assembly line">assembly line</option>
+          <option value="fabrication">fabrication</option>
+          <option value="quality checking">quality checking</option>
+          <option value="handloom">handloom</option>
+          <option value="handicraft">handicraft</option>
+          <option value="other">other</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Duration</label>
+        <input type="text" id="jobDuration" placeholder="e.g. 4 hours, 2 days">
+      </div>
+      <div class="field">
+        <label>Distance Info</label>
+        <input type="text" id="jobDist" placeholder="e.g. 2 km away">
+      </div>
+      <button class="btn btn-primary btn-block" id="postJobBtn">Post this job</button>
+      <div id="postJobMsg" style="margin-top:10px;"></div>
+    </div>
+
+    <div class="card" data-tilt>
+      <h3>My Posted Jobs</h3>
+      <div class="log-list" id="myJobsList"><div class="empty-note">Loading…</div></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <span>SAATHI — MSME IDEA HACKATHON 6.0</span>
+  <span id="clock"></span>
+</footer>
+
+<script src="assets/js/api.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+Saathi.requireAuth();
+const user = Saathi.getUser();
+if (user && user.role !== 'employer') {
+  document.getElementById('mainContent').innerHTML = '<div style="padding:100px; text-align:center;"><h2>This page is for employers only</h2></div>';
+} else {
+  saathiInitTilt("[data-tilt]", 6);
+  saathiScrollReveal();
+
+  const myJobsList = document.getElementById('myJobsList');
+
+  function renderJobs(jobs){
+    if (!jobs.length){
+      myJobsList.innerHTML = '<div class="empty-note">No jobs posted yet.</div>';
+      return;
+    }
+    myJobsList.innerHTML = jobs.map(j => `
+      <div class="log-entry">
+        <div class="meta"><span class="chip">${j.unit || 'My Unit'}</span><span class="chip dist">${j.skill}</span><span class="chip ${j.status==='open'?'sev-medium':'sev-high'}">${j.status || 'open'}</span></div>
+        <p>${j.task} <br><small style="color:var(--steel)">${j.duration} • ${j.dist}</small></p>
+      </div>`).join('');
+    try { gsap.from("#myJobsList .log-entry", {opacity:0, y:10, duration:0.35, stagger:0.06}); } catch(e) {}
+  }
+
+  async function loadMyJobs(){
+    try {
+      const data = await Saathi.get('/employer/myjobs');
+      renderJobs(data.jobs || []);
+    } catch (e) { myJobsList.innerHTML = `<div class="empty-note">${e.message}</div>`; }
+  }
+  loadMyJobs();
+
+  document.getElementById('postJobBtn').addEventListener('click', async () => {
+    const task = document.getElementById('jobTask').value.trim();
+    const skill = document.getElementById('jobSkill').value;
+    const duration = document.getElementById('jobDuration').value.trim();
+    const dist = document.getElementById('jobDist').value.trim();
+    const msgDiv = document.getElementById('postJobMsg');
+    
+    if (!task) {
+      msgDiv.innerHTML = '<span style="color:var(--rust)">Task description is required.</span>';
+      return;
+    }
+
+    try {
+      msgDiv.innerHTML = '<span style="color:var(--steel)">Posting...</span>';
+      await Saathi.post('/employer/postjob', { task, skill, duration, dist });
+      msgDiv.innerHTML = '<span style="color:var(--teal)">Job posted successfully!</span>';
+      document.getElementById('jobTask').value = '';
+      document.getElementById('jobDuration').value = '';
+      document.getElementById('jobDist').value = '';
+      loadMyJobs();
+    } catch (e) { 
+      msgDiv.innerHTML = `<span style="color:var(--rust)">${e.message}</span>`;
+    }
+  });
+}
+</script>
+</body>
+</html>

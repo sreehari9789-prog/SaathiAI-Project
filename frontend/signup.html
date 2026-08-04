@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign up — Saathi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="brand"><span class="dot"></span> Saathi</a>
+  <button class="mobile-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  <nav id="mainNav">
+    <a href="index.html" data-page="index.html">Home</a>
+    <a href="assistant.html" data-page="assistant.html">Assistant</a>
+  </nav>
+  <div class="nav-right" id="navRight"></div>
+</div>
+
+<main>
+<div class="auth-shell">
+  <div class="auth-visual" id="authVisual">
+    <div class="orb" style="width:260px;height:260px; background:var(--rust); top:-60px; right:-60px;"></div>
+    <div class="orb" style="width:200px;height:200px; background:var(--marigold); bottom:-60px; left:-60px;"></div>
+    <div>
+      <span class="kicker">Join Saathi</span>
+      <h2>One account. Every tool. Your own history.</h2>
+    </div>
+    <p>Sign up with just a phone number and your unit name — no email, no paperwork. Takes under a minute.</p>
+  </div>
+  <div class="auth-form-wrap">
+    <div class="auth-card">
+      <h1>Create account</h1>
+      <p class="sub">Free for every MSME worker and unit.</p>
+      <div class="form-error" id="formError"></div>
+      <form id="signupForm">
+        <div class="field">
+          <label for="name">Full name</label>
+          <input type="text" id="name" placeholder="Ravi Kumar" required>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="phone">Phone number</label>
+            <input type="tel" id="phone" placeholder="98765 43210" required>
+          </div>
+          <div class="field">
+            <label for="unit">Your unit / workshop</label>
+            <input type="text" id="unit" placeholder="Unit A" required>
+          </div>
+        </div>
+        <div class="field">
+          <label for="role">I am a…</label>
+          <select id="role">
+            <option value="worker">Worker</option>
+            <option value="employer">Employer / unit owner</option>
+          </select>
+        </div>
+        <div class="field" id="workerTypeField">
+          <label for="workerType">Worker category</label>
+          <select id="workerType">
+            <option value="manufacturing">Manufacturing (assembly, fabrication, machine operator)</option>
+            <option value="artisan">Artisan & Cottage (handloom, handicraft, village industry)</option>
+            <option value="daily-wage">Daily-wage / General labor</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="At least 4 characters" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block" id="submitBtn">Create account</button>
+      </form>
+      <div class="helper-row">
+        <span>Already have an account?</span>
+        <a href="login.html">Log in</a>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+
+<footer>
+  <span>SAATHI — MSME IDEA HACKATHON 6.0</span>
+  <span id="clock"></span>
+</footer>
+
+<script src="assets/js/api.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+try {
+  gsap.from("#authVisual > *", {opacity:0, y:20, duration:0.6, stagger:0.1, ease:"power2.out"});
+  gsap.from(".auth-card > *", {opacity:0, y:16, duration:0.55, stagger:0.06, ease:"power2.out", delay:0.1});
+  gsap.from(".orb", {scale:0, duration:1, stagger:0.15, ease:"power3.out"});
+} catch(e) {}
+
+if (Saathi.isLoggedIn()) window.location.href = "dashboard.html";
+
+document.getElementById('role').addEventListener('change', (e) => {
+  document.getElementById('workerTypeField').style.display = e.target.value === 'worker' ? '' : 'none';
+});
+
+document.getElementById('signupForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const errBox = document.getElementById('formError');
+  const btn = document.getElementById('submitBtn');
+  errBox.classList.remove('show');
+  const payload = {
+    name: document.getElementById('name').value.trim(),
+    phone: document.getElementById('phone').value.trim(),
+    unit: document.getElementById('unit').value.trim(),
+    role: document.getElementById('role').value,
+    password: document.getElementById('password').value
+  };
+  btn.textContent = "Creating account…";
+  btn.disabled = true;
+  try {
+    await Saathi.signup(payload);
+    window.location.href = payload.role === 'employer' ? "employer.html" : "dashboard.html";
+  } catch (err) {
+    errBox.textContent = err.message;
+    errBox.classList.add('show');
+    btn.textContent = "Create account";
+    btn.disabled = false;
+    try { gsap.fromTo("#formError", {x:-8}, {x:0, duration:0.4, ease:"elastic.out(1,0.4)"}); } catch(e) {}
+  }
+});
+</script>
+</body>
+</html>

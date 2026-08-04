@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ProblemShare — Saathi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>.tool-pills{ display:flex; flex-wrap:wrap; gap:8px; margin:18px 0 0; } .tool-pill{ font-family:'IBM Plex Mono',monospace; font-size:0.74rem; padding:6px 12px; border-radius:100px; border:1px solid var(--line); color:var(--steel); } .tool-pill.current{ background:var(--ink); color:var(--paper); border-color:var(--ink); }</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="brand"><span class="dot"></span> Saathi</a>
+  <button class="mobile-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  <nav id="mainNav">
+    <a href="index.html" data-page="index.html">Home</a>
+    <a href="assistant.html" data-page="assistant.html">Assistant</a>
+    <a href="dashboard.html" data-page="dashboard.html">Dashboard</a>
+  </nav>
+  <div class="nav-right" id="navRight"></div>
+</div>
+
+<main>
+<div class="page-hero">
+  <span class="tag-num">TOOL 06</span>
+  <h1>ProblemShare</h1>
+  <p>Describe your work problems and get AI-powered solutions, or see solutions to problems shared by the community.</p>
+  <div class="tool-pills">
+    <a href="memory.html" class="tool-pill">Knowledge Memory</a>
+    <a href="workshare.html" class="tool-pill">AI WorkShare</a>
+    <a href="fairwage.html" class="tool-pill">FairWage</a>
+    <a href="safety.html" class="tool-pill">Safety Reporter</a>
+    <a href="grievance.html" class="tool-pill">Helpline</a>
+    <span class="tool-pill current">ProblemShare</span>
+  </div>
+</div>
+
+<section class="section" style="border-top:none;">
+  <div class="grid-2">
+    <div class="card" data-tilt>
+      <h3>Describe Your Problem</h3>
+      <div class="field">
+        <select id="langSelect" class="lang-select" style="width:auto; margin-bottom:10px; background:#fff; color:var(--ink); border:1px solid var(--line); padding:8px 12px; font-family:'Work Sans', sans-serif;">
+          <option value="auto">Auto-detect</option>
+          <option value="en-IN">English (India)</option>
+          <option value="hi-IN">हिन्दी (Hindi)</option>
+          <option value="ta-IN">தமிழ் (Tamil)</option>
+          <option value="te-IN">తెలుగు (Telugu)</option>
+          <option value="mr-IN">मराठी (Marathi)</option>
+          <option value="bn-IN">বাংলা (Bengali)</option>
+          <option value="gu-IN">ગુજરાતી (Gujarati)</option>
+          <option value="kn-IN">ಕನ್ನಡ (Kannada)</option>
+          <option value="pa-IN">ਪੰਜਾਬੀ (Punjabi)</option>
+        </select>
+        <div class="field-row" style="align-items:center; gap:10px;">
+          <input type="text" id="problemText" placeholder="e.g. My sewing machine thread keeps breaking">
+          <button id="micBtn" class="mini ghost" style="padding:0; border-radius:50%; width:38px; height:38px; display:flex; align-items:center; justify-content:center;" title="Speak">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/></svg>
+          </button>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-block" id="getSolutionBtn">Get Solution</button>
+      
+      <div id="solutionBox" class="reply-box">
+        <div class="reply-label">
+          <svg class="speaker-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+          AI Solution
+        </div>
+        <div class="reply-text" id="solutionText"></div>
+      </div>
+    </div>
+
+    <div class="card" data-tilt>
+      <h3>Recent Community Problems</h3>
+      <div class="log-list" id="recentProblems"><div class="empty-note">Loading…</div></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <span>SAATHI — MSME IDEA HACKATHON 6.0</span>
+  <span id="clock"></span>
+</footer>
+
+<script src="assets/js/api.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/voice.js"></script>
+<script>
+saathiInitTilt("[data-tilt]", 6);
+saathiScrollReveal();
+
+const recentProblemsList = document.getElementById('recentProblems');
+
+function renderRecent(problems){
+  if (!problems || !problems.length){
+    recentProblemsList.innerHTML = '<div class="empty-note">No recent problems found.</div>';
+    return;
+  }
+  recentProblemsList.innerHTML = problems.map(p => `
+    <div class="log-entry">
+      <div class="meta"><span class="chip">${p.tag || 'Issue'}</span><span class="chip dist">${p.time || 'Just now'}</span></div>
+      <p style="font-weight:600; margin-bottom:6px;">Q: ${p.problem}</p>
+      <p style="color:var(--steel); font-size:0.9rem;">A: ${p.solution}</p>
+    </div>`).join('');
+  try { gsap.from("#recentProblems .log-entry", {opacity:0, y:10, duration:0.35, stagger:0.06}); } catch(e) {}
+}
+
+async function loadRecentProblems(){
+  try {
+    const data = await Saathi.get('/problemshare/recent');
+    renderRecent(data.problems || []);
+  } catch (e) { recentProblemsList.innerHTML = `<div class="empty-note">${e.message}</div>`; }
+}
+loadRecentProblems();
+
+const problemInput = document.getElementById('problemText');
+const getSolBtn = document.getElementById('getSolutionBtn');
+const solBox = document.getElementById('solutionBox');
+const solText = document.getElementById('solutionText');
+const langSelect = document.getElementById('langSelect');
+
+getSolBtn.addEventListener('click', async () => {
+  const text = problemInput.value.trim();
+  const lang = langSelect.value;
+  if(!text) return;
+
+  solBox.classList.remove('show');
+  getSolBtn.innerText = 'Analyzing...';
+  
+  try {
+    const data = await Saathi.post('/problemshare/ask', { text, lang });
+    solText.innerText = data.solution;
+    solBox.classList.add('show');
+    saathiSpeak(data.solution, lang);
+    loadRecentProblems(); // refresh list
+  } catch(e) {
+    solText.innerText = 'Error: ' + e.message;
+    solBox.classList.add('show');
+  } finally {
+    getSolBtn.innerText = 'Get Solution';
+  }
+});
+
+problemInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') getSolBtn.click();
+});
+
+// Voice Input
+const micBtn = document.getElementById('micBtn');
+let isListening = false;
+let recognizer = null;
+
+if (typeof saathiCreateRecognizer !== 'undefined') {
+  recognizer = saathiCreateRecognizer({
+    onStart: () => {
+      isListening = true;
+      micBtn.style.color = 'var(--rust)';
+      micBtn.style.borderColor = 'var(--rust)';
+      problemInput.placeholder = 'Listening...';
+    },
+    onInterim: (text) => {
+      problemInput.value = text;
+    },
+    onFinal: (text) => {
+      problemInput.value = text;
+      setTimeout(() => getSolBtn.click(), 500);
+    },
+    onEnd: () => {
+      isListening = false;
+      micBtn.style.color = '';
+      micBtn.style.borderColor = '';
+      problemInput.placeholder = 'e.g. My sewing machine thread keeps breaking';
+    },
+    onError: (e) => {
+      console.error(e);
+      isListening = false;
+      micBtn.style.color = '';
+      micBtn.style.borderColor = '';
+      problemInput.placeholder = 'e.g. My sewing machine thread keeps breaking';
+    }
+  });
+
+  micBtn.addEventListener('click', () => {
+    if (isListening) {
+      recognizer.stop();
+    } else {
+      recognizer.start(langSelect.value);
+    }
+  });
+} else {
+  micBtn.style.display = 'none';
+}
+</script>
+</body>
+</html>

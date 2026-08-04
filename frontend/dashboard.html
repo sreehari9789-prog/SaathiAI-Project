@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — Saathi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="brand"><span class="dot"></span> Saathi</a>
+  <button class="mobile-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  <nav id="mainNav">
+    <a href="index.html" data-page="index.html">Home</a>
+    <a href="assistant.html" data-page="assistant.html">Assistant</a>
+    <a href="dashboard.html" data-page="dashboard.html">Dashboard</a>
+  </nav>
+  <div class="nav-right" id="navRight"></div>
+</div>
+
+<main>
+<div class="page-hero">
+  <span class="tag-num">YOUR SAATHI</span>
+  <h1 id="greeting">Welcome back</h1>
+  <p>A quick look at what you've saved, matched, estimated, and reported — all in one place.</p>
+</div>
+
+<section class="section" style="border-top:none;">
+  <div class="dash-grid" id="statGrid">
+    <div class="stat-card" data-tilt><div class="stat-label">Fixes saved</div><div class="stat-value" id="statMemory">—</div></div>
+    <div class="stat-card" data-tilt><div class="stat-label">WorkShare searches</div><div class="stat-value" id="statWorkshare">—</div></div>
+    <div class="stat-card" data-tilt><div class="stat-label">Wage estimates</div><div class="stat-value" id="statFairwage">—</div></div>
+    <div class="stat-card" data-tilt><div class="stat-label">Safety reports</div><div class="stat-value stat-accent" id="statSafety">—</div></div>
+    <div class="stat-card" data-tilt><div class="stat-label">Helpline entries</div><div class="stat-value" id="statGrievance">—</div></div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>Recent activity</h3>
+      <div class="activity-feed" id="activityFeed"><div class="empty-note">Loading…</div></div>
+    </div>
+    <div class="card">
+      <h3>Jump into a tool</h3>
+      <div class="quick-links">
+        <a href="assistant.html" class="quick-link" data-tilt><span class="ql-title">Voice Assistant</span><span class="ql-sub">SPEAK TO ANY TOOL</span></a>
+        <a href="memory.html" class="quick-link" data-tilt><span class="ql-title">Knowledge Memory</span><span class="ql-sub">TOOL 01</span></a>
+        <a href="workshare.html" class="quick-link" data-tilt><span class="ql-title">AI WorkShare</span><span class="ql-sub">TOOL 02</span></a>
+        <a href="fairwage.html" class="quick-link" data-tilt><span class="ql-title">FairWage</span><span class="ql-sub">TOOL 03</span></a>
+        <a href="safety.html" class="quick-link" data-tilt><span class="ql-title">Safety Reporter</span><span class="ql-sub">TOOL 04</span></a>
+        <a href="grievance.html" class="quick-link" data-tilt><span class="ql-title">Helpline</span><span class="ql-sub">TOOL 05</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <span>SAATHI — MSME IDEA HACKATHON 6.0</span>
+  <span id="clock"></span>
+</footer>
+
+<script src="assets/js/api.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+Saathi.requireAuth();
+const user = Saathi.getUser();
+if (user) document.getElementById('greeting').textContent = "Welcome back, " + user.name.split(' ')[0];
+
+const ICONS = { memory:'📗', workshare:'🤝', fairwage:'₹', safety:'⚠', grievance:'✉' };
+
+async function loadDashboard(){
+  try {
+    const data = await Saathi.get('/dashboard/summary');
+    document.getElementById('statMemory').textContent = data.counts.memory;
+    document.getElementById('statWorkshare').textContent = data.counts.workshare;
+    document.getElementById('statFairwage').textContent = data.counts.fairwage;
+    document.getElementById('statSafety').textContent = data.counts.safety;
+    document.getElementById('statGrievance').textContent = data.counts.grievance;
+
+    const feed = document.getElementById('activityFeed');
+    if (!data.activity.length){
+      feed.innerHTML = '<div class="empty-note">No activity yet — try the voice assistant to get started.</div>';
+    } else {
+      feed.innerHTML = data.activity.map(a => `
+        <div class="activity-item">
+          <span class="activity-dot"></span>
+          <span class="a-label">${a.label}</span>
+          <span class="a-time">${a.timeLabel}</span>
+        </div>`).join('');
+    }
+    try { gsap.from("#statGrid .stat-value", {textContent:0, duration:0.8, snap:{textContent:1}, stagger:0.08, ease:"power1.out"}); } catch(e) {}
+    try { gsap.from(".activity-item", {opacity:0, x:-14, duration:0.4, stagger:0.06, ease:"power2.out"}); } catch(e) {}
+  } catch (e) {
+    document.getElementById('activityFeed').innerHTML = `<div class="empty-note">${e.message}</div>`;
+  }
+}
+loadDashboard();
+saathiInitTilt("[data-tilt]", 6);
+</script>
+</body>
+</html>

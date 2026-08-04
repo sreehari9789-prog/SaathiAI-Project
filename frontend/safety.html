@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Safety Reporter — Saathi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>.tool-pills{ display:flex; flex-wrap:wrap; gap:8px; margin:18px 0 0; } .tool-pill{ font-family:'IBM Plex Mono',monospace; font-size:0.74rem; padding:6px 12px; border-radius:100px; border:1px solid var(--line); color:var(--steel); } .tool-pill.current{ background:var(--ink); color:var(--paper); border-color:var(--ink); }</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="brand"><span class="dot"></span> Saathi</a>
+  <button class="mobile-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  <nav id="mainNav">
+    <a href="index.html" data-page="index.html">Home</a>
+    <a href="assistant.html" data-page="assistant.html">Assistant</a>
+    <a href="dashboard.html" data-page="dashboard.html">Dashboard</a>
+  </nav>
+  <div class="nav-right" id="navRight"></div>
+</div>
+
+<main>
+<div class="page-hero">
+  <span class="tag-num">TOOL 04 · NEW</span>
+  <h1>Safety Reporter</h1>
+  <p>Call out a hazard the moment you see it — a spark, a gas smell, an exposed wire. Saathi logs it immediately with a severity flag so it doesn't get forgotten by the end of the shift.</p>
+  <div class="tool-pills">
+    <a href="memory.html" class="tool-pill">Knowledge Memory</a>
+    <a href="workshare.html" class="tool-pill">AI WorkShare</a>
+    <a href="fairwage.html" class="tool-pill">FairWage</a>
+    <span class="tool-pill current">Safety Reporter</span>
+    <a href="grievance.html" class="tool-pill">Helpline</a>
+  </div>
+</div>
+
+<section class="section" style="border-top:none;">
+  <div class="grid-2">
+    <div class="card" data-tilt>
+      <h3>Report a hazard</h3>
+      <div class="tag-input">
+        <select id="machineSelect">
+          <option>Cutting machine</option>
+          <option>Compressor</option>
+          <option>Loom</option>
+          <option>Motor</option>
+          <option>Boiler</option>
+          <option>Electrical</option>
+          <option>Other</option>
+        </select>
+        <select id="severitySelect">
+          <option value="low">Low severity</option>
+          <option value="medium">Medium severity</option>
+          <option value="high">High severity</option>
+        </select>
+      </div>
+      <div class="field"><input type="text" id="hazardText" placeholder="Describe what you saw…"></div>
+      <button class="mini" id="reportBtn">Report hazard</button>
+      <p class="form-error" id="reportError" style="margin-top:12px;"></p>
+      <p class="form-success" id="reportSuccess" style="margin-top:12px;"></p>
+    </div>
+
+    <div class="card" data-tilt>
+      <h3>Recent reports across units</h3>
+      <div class="log-list" id="safetyList"><div class="empty-note">Loading…</div></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <span>SAATHI — MSME IDEA HACKATHON 6.0</span>
+  <span id="clock"></span>
+</footer>
+
+<script src="assets/js/api.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+saathiInitTilt("[data-tilt]", 6);
+saathiScrollReveal();
+
+const safetyList = document.getElementById('safetyList');
+
+function renderSafety(reports){
+  if (!reports.length){
+    safetyList.innerHTML = '<div class="empty-note">No hazards reported yet. If you spot something unsafe, report it on the left.</div>';
+    return;
+  }
+  safetyList.innerHTML = reports.map(r => `
+    <div class="log-entry">
+      <div class="meta"><span class="chip sev-${r.severity}">${r.severity} severity</span><span>${r.timeLabel}</span></div>
+      <p><strong>${r.machine}</strong> — ${r.description}</p>
+    </div>`).join('');
+  try { gsap.from("#safetyList .log-entry", {opacity:0, y:10, duration:0.35, stagger:0.05}); } catch(e) {}
+}
+
+async function loadSafety(){
+  try {
+    const data = await Saathi.get('/safety/recent');
+    renderSafety(data.reports);
+  } catch (e) { safetyList.innerHTML = `<div class="empty-note">${e.message}</div>`; }
+}
+loadSafety();
+
+document.getElementById('reportBtn').addEventListener('click', async () => {
+  const errBox = document.getElementById('reportError');
+  const okBox = document.getElementById('reportSuccess');
+  errBox.classList.remove('show'); okBox.classList.remove('show');
+  if (!Saathi.isLoggedIn()){
+    errBox.textContent = 'Log in to report a hazard.';
+    errBox.classList.add('show');
+    return;
+  }
+  const description = document.getElementById('hazardText').value.trim();
+  if (!description) return;
+  const machine = document.getElementById('machineSelect').value;
+  const severity = document.getElementById('severitySelect').value;
+  try {
+    await Saathi.post('/safety/report', { machine, description, severity });
+    document.getElementById('hazardText').value = "";
+    okBox.textContent = 'Hazard reported — thank you for flagging it.';
+    okBox.classList.add('show');
+    loadSafety();
+  } catch (e) {
+    errBox.textContent = e.message;
+    errBox.classList.add('show');
+  }
+});
+</script>
+</body>
+</html>
