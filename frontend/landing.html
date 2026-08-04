@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saathi — Voice Assistant for MSME Workers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="brand"><span class="dot"></span> Saathi</a>
+  <button class="mobile-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  <nav id="mainNav">
+    <a href="index.html" data-page="index.html">Home</a>
+    <a href="landing.html" data-page="landing.html">All Tools</a>
+    <a href="dashboard.html" data-page="dashboard.html">Dashboard</a>
+  </nav>
+  <div class="nav-right" id="navRight"></div>
+</div>
+
+<main>
+<section class="hero">
+  <div class="hero-copy">
+    <span class="eyebrow">Voice first · Understands what you need</span>
+    <h1><span class="line">Speak once.</span><span class="line">Saathi knows what to do.</span></h1>
+    <p>Tell Saathi a machine problem, ask about spare work, check a fair wage, report a hazard, or raise a concern with the helpline — it listens once, figures out which tool you need, and replies out loud and in text, in your language.</p>
+    <div class="hero-cta">
+      <a href="assistant.html" class="btn btn-accent">Open the voice assistant</a>
+      <a href="signup.html" class="btn btn-ghost">Create free account</a>
+    </div>
+    <div class="lang-row">
+      <span class="lang-chip">हिन्दी</span>
+      <span class="lang-chip">தமிழ்</span>
+      <span class="lang-chip">తెలుగు</span>
+      <span class="lang-chip">मराठी</span>
+      <span class="lang-chip">বাংলা</span>
+      <span class="lang-chip">English</span>
+    </div>
+  </div>
+
+  <div class="console-wrap">
+    <div class="console" id="consoleCard">
+      <div class="console-label">
+        <span>PUSH TO TALK</span>
+        <select class="lang-select" id="langSelect">
+          <option value="auto">🌐 Auto-detect</option>
+          <option value="en-IN">English</option>
+          <option value="hi-IN">हिन्दी</option>
+          <option value="ta-IN">தமிழ்</option>
+          <option value="te-IN">తెలుగు</option>
+          <option value="mr-IN">मराठी</option>
+          <option value="bn-IN">বাংলা</option>
+          <option value="gu-IN">ગુજરાতી</option>
+          <option value="kn-IN">ಕನ್ನಡ</option>
+          <option value="pa-IN">ਪੰਜਾਬੀ</option>
+        </select>
+      </div>
+      <div class="btn-wrap">
+        <button class="mic-btn" id="micBtn" aria-label="Push to talk">
+          <span class="ring"></span><span class="ring r2"></span><span class="ring r3"></span>
+          <svg viewBox="0 0 24 24"><path d="M12 14a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v5a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11h-2z"/></svg>
+        </button>
+      </div>
+      <div class="status-line" id="statusLine">Tap the button and speak in any language above</div>
+      <div class="readout" id="readout"><span class="placeholder">Transcript will appear here…</span></div>
+      <div style="text-align:center;"><span class="intent-badge" id="intentBadge">detected: —</span></div>
+      <div class="reply-box" id="replyBox">
+        <div class="reply-label"><svg class="speaker-icon" viewBox="0 0 24 24" fill="#E8963C"><path d="M3 10v4h4l5 5V5L7 10H3z"/></svg> Saathi replies</div>
+        <div class="reply-text" id="replyText">—</div>
+      </div>
+      <div style="text-align:center; margin-top:14px;"><a href="assistant.html" class="btn btn-ghost btn-sm">Open full assistant →</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="tools">
+  <div class="section-head"><span class="tag-num">FIVE TOOLS</span><h2>Everything routes from one mic</h2></div>
+  <p class="section-sub">Each tool also has its own page — search, filter, and browse at your own pace, or just speak and let Saathi route you there directly.</p>
+
+  <div class="feature-grid">
+    <a href="memory.html" class="feature-card" data-tilt>
+      <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+      <span class="fnum">TOOL 01</span>
+      <h3>Knowledge Memory</h3>
+      <p>Speak a machine fix once. Any worker searching for the same problem finds it later — even after you've moved on.</p>
+      <span class="go">Open tool →</span>
+    </a>
+    <a href="workshare.html" class="feature-card" data-tilt>
+      <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a8 8 0 0 1 16 0v1"/></svg></div>
+      <span class="fnum">TOOL 02</span>
+      <h3>AI WorkShare</h3>
+      <p>Describe your free time and skill. Get matched to short-term tasks at nearby MSME units — your employer stays visible.</p>
+      <span class="go">Open tool →</span>
+    </a>
+    <a href="fairwage.html" class="feature-card" data-tilt>
+      <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+      <span class="fnum">TOOL 03</span>
+      <h3>FairWage Estimator</h3>
+      <p>Describe a task and hours. Get an advisory wage range for the worker and total cost for the employer.</p>
+      <span class="go">Open tool →</span>
+    </a>
+    <a href="safety.html" class="feature-card" data-tilt>
+      <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.4 8.4-8 10-4.6-1.6-8-5-8-10V6l8-4z"/></svg></div>
+      <span class="fnum">TOOL 04</span>
+      <h3>Safety Reporter <span class="badge-new">NEW</span></h3>
+      <p>Call out a hazard the moment you see it — a spark, a leak, an exposed wire. Logged instantly with a severity flag.</p>
+      <span class="go">Open tool →</span>
+    </a>
+    <a href="grievance.html" class="feature-card" data-tilt>
+      <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+      <span class="fnum">TOOL 05</span>
+      <h3>Helpline <span class="badge-new">NEW</span></h3>
+      <p>Raise a concern about pay, treatment, or a dispute — confidentially, in your own words, without writing a formal complaint.</p>
+      <span class="go">Open tool →</span>
+    </a>
+    <a href="problemshare.html" class="feature-card" data-tilt>
+      <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+      <span class="fnum">TOOL 06</span>
+      <h3>ProblemShare <span class="badge-new">NEW</span></h3>
+      <p>Describe any workplace problem — machine issues, process troubles, or daily challenges. Saathi gives you practical, tested solutions.</p>
+      <span class="go">Open tool →</span>
+    </a>
+    <a href="employer.html" class="feature-card" data-tilt>
+      <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+      <span class="fnum">EMPLOYER</span>
+      <h3>Employer Dashboard <span class="badge-new">NEW</span></h3>
+      <p>Unit owners and employers can post short-term jobs, manage openings, and connect with skilled workers nearby.</p>
+      <span class="go">Open dashboard →</span>
+    </a>
+    <a href="assistant.html" class="feature-card" data-tilt style="background:var(--ink); color:var(--paper);">
+      <div class="icon-badge" style="background:var(--marigold); color:var(--ink);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 14a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v5a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11h-2z"/></svg></div>
+      <span class="fnum" style="color:var(--marigold);">ONE MIC</span>
+      <h3>Full Voice Assistant</h3>
+      <p style="color:#B7C4C0;">The dedicated console — bigger mic, full transcript history, and spoken + written replies in one place.</p>
+      <span class="go" style="color:var(--paper);">Open assistant →</span>
+    </a>
+  </div>
+</section>
+
+<section class="section" style="border-top:1px solid var(--line); text-align:center;">
+  <h2 style="margin-bottom:10px;">Built for the shop floor, not the office</h2>
+  <p class="section-sub" style="margin-left:auto; margin-right:auto;">Offline-friendly caching, minimal typing, and replies in the worker's own language — because the person using this tool has a machine to get back to.</p>
+  <a href="signup.html" class="btn btn-accent">Create your free account</a>
+</section>
+</main>
+
+<footer>
+  <span>SAATHI — MSME IDEA HACKATHON 6.0</span>
+  <span id="clock"></span>
+</footer>
+
+<script src="assets/js/api.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/voice.js"></script>
+<script>
+try {
+  const heroTl = gsap.timeline({defaults:{ease:"power3.out"}});
+  heroTl
+    .from(".eyebrow", {opacity:0, y:14, duration:0.5})
+    .from(".hero-copy h1 .line", {opacity:0, y:40, rotationX:-40, transformOrigin:"top", duration:0.7, stagger:0.12}, "-=0.2")
+    .from(".hero-copy p", {opacity:0, y:16, duration:0.5}, "-=0.3")
+    .from(".hero-cta", {opacity:0, y:12, duration:0.4}, "-=0.25")
+    .from(".lang-chip", {opacity:0, y:10, stagger:0.05, duration:0.4}, "-=0.2")
+    .from(".console", {opacity:0, rotationY:-25, x:60, transformPerspective:1000, duration:0.9}, "-=0.6");
+} catch(e) { console.warn("Saathi: entrance animation skipped.", e); }
+
+saathiScrollReveal();
+saathiInitTilt("[data-tilt]", 8);
+
+/* mini voice console on the landing page */
+const micBtn = document.getElementById('micBtn');
+const statusLine = document.getElementById('statusLine');
+const readout = document.getElementById('readout');
+const intentBadge = document.getElementById('intentBadge');
+const langSelect = document.getElementById('langSelect');
+const replyBox = document.getElementById('replyBox');
+const replyText = document.getElementById('replyText');
+let recognizing = false;
+
+const recognizer = saathiCreateRecognizer({
+  onStart(){
+    recognizing = true;
+    micBtn.classList.add('listening');
+    statusLine.textContent = "Listening… speak now";
+    gsap.to(intentBadge, {opacity:0, y:6, duration:0.2});
+    replyBox.classList.remove('show');
+  },
+  onInterim(text){ readout.innerHTML = text; },
+  onError(){ statusLine.textContent = "Could not access microphone — try the assistant page instead"; recognizing=false; micBtn.classList.remove('listening'); },
+  onEnd: async (finalText) => {
+    recognizing = false;
+    micBtn.classList.remove('listening');
+    if (!finalText){ statusLine.textContent = "Tap the button and speak in any language"; return; }
+    statusLine.textContent = "Got it — routing to the right tool…";
+    const selectedLang = langSelect.value;
+    try {
+      const res = await saathiAskAssistant(finalText, selectedLang);
+      const meta = INTENT_META[res.intent] || INTENT_META['memory'];
+      intentBadge.textContent = "detected: " + (meta.icon || '') + ' ' + (res.featureLabel || meta.label);
+      gsap.fromTo(intentBadge, {opacity:0, y:6}, {opacity:1, y:0, duration:0.35});
+      replyText.textContent = res.replyText;
+      replyBox.classList.add('show');
+      try { gsap.fromTo(replyBox, {opacity:0, y:10}, {opacity:1, y:0, duration:0.4}); } catch(e){}
+      const ttsLang = res.detectedLang || selectedLang;
+      saathiSpeak(res.replyText, ttsLang);
+      statusLine.textContent = (meta.icon || '🔗') + " Routed to " + (res.featureLabel || meta.label);
+    } catch(e) {
+      statusLine.textContent = e.message;
+    }
+  }
+});
+
+if (!recognizer) statusLine.textContent = "Voice recognition not supported in this browser — open the assistant page to type instead";
+
+micBtn.addEventListener('click', () => {
+  if (!recognizer) return;
+  if (recognizing) { recognizer.stop(); return; }
+  readout.innerHTML = "";
+  gsap.fromTo(micBtn, {scale:0.9}, {scale:1, duration:0.3, ease:"back.out(3)"});
+  statusLine.textContent = "Greeting…";
+  saathiGreet(langSelect.value, () => {
+    statusLine.textContent = "Listening… speak now";
+    recognizer.start(langSelect.value);
+  });
+});
+</script>
+</body>
+</html>
