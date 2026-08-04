@@ -78,8 +78,10 @@ function translateText(text, targetLang, sourceLang = 'auto') {
           if (json && json[0]) {
             json[0].forEach(item => { if (item[0]) translated += item[0]; });
           }
-          resolve(translated || text);
-        } catch (e) { resolve(text); }
+          const result = new String(translated || text);
+          result.detectedLang = json[2];
+          resolve(result);
+        } catch (e) { resolve(new String(text)); }
       });
     }).on('error', () => resolve(text));
   });
@@ -278,7 +280,9 @@ route('POST', '/api/assistant/query', async (req, res, ctx) => {
   let englishText = text;
   let detectedLang = lang;
   if (!lang.startsWith('en')) {
-    englishText = await translateText(text, 'en', lang);
+    const tr = await translateText(text, 'en', lang);
+    englishText = tr.toString();
+    if (lang === 'auto' && tr.detectedLang) detectedLang = tr.detectedLang;
   }
 
   // Step 2: Classify intent on English text
@@ -385,8 +389,8 @@ route('POST', '/api/assistant/query', async (req, res, ctx) => {
   store.save();
 
   // Step 4: Translate reply back to user's language
-  if (lang && !lang.startsWith('en')) {
-    replyText = await translateText(replyText, lang, 'en');
+  if (detectedLang && !detectedLang.startsWith('en') && detectedLang !== 'auto') {
+    replyText = (await translateText(replyText, detectedLang, 'en')).toString();
   }
 
   send(res, 200, { intent, replyText, data, detectedLang, featurePage, featureLabel });
