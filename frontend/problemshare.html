@@ -55,6 +55,8 @@
           <option value="gu-IN">ગુજરાતી (Gujarati)</option>
           <option value="kn-IN">ಕನ್ನಡ (Kannada)</option>
           <option value="pa-IN">ਪੰਜਾਬੀ (Punjabi)</option>
+          <option value="ml-IN">മലയാളം (Malayalam)</option>
+          <option value="ur-IN">اردو (Urdu)</option>
         </select>
         <div class="field-row" style="align-items:center; gap:10px;">
           <input type="text" id="problemText" placeholder="e.g. My sewing machine thread keeps breaking">
@@ -185,11 +187,19 @@ if (typeof saathiCreateRecognizer !== 'undefined') {
     }
   });
 
+if (langSelect) {
+  langSelect.addEventListener('change', () => {
+    saathiGreet(langSelect.value);
+  });
+}
+
   micBtn.addEventListener('click', () => {
     if (isListening) {
       recognizer.stop();
     } else {
-      recognizer.start(langSelect.value);
+      saathiGreet(langSelect.value, () => {
+        recognizer.start(langSelect.value);
+      });
     }
   });
 } else {

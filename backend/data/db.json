@@ -12,6 +12,78 @@
   ],
   "memory": [
     {
+      "id": "m_msfqqh7n3e5am6",
+      "userId": "u_msepr5uiihpy2o",
+      "tag": "General",
+      "text": "नमस्ते, मुझे ये काम चाहिए जिसका डायलरिंग के बारे में हो सकता है।",
+      "unit": "unit a",
+      "time": "2026-08-05T07:03:33.539Z"
+    },
+    {
+      "id": "m_msfqea2s0zyh8r",
+      "userId": "u_msepr5uiihpy2o",
+      "tag": "General",
+      "text": "ఈ జస్ట్ ప్రొటౌట్ యూత్ అన్నప్పుడు అడిగాడు.",
+      "unit": "unit a",
+      "time": "2026-08-05T06:54:04.420Z"
+    },
+    {
+      "id": "m_msfq8p2eij78eh",
+      "userId": "u_msepr5uiihpy2o",
+      "tag": "General",
+      "text": "டெய்லரிங் அந்த மாதிரி.",
+      "unit": "unit a",
+      "time": "2026-08-05T06:49:43.910Z"
+    },
+    {
+      "id": "m_msfq7qsx4ley5y",
+      "userId": "u_msepr5uiihpy2o",
+      "tag": "General",
+      "text": "How are you, man?",
+      "unit": "unit a",
+      "time": "2026-08-05T06:48:59.505Z"
+    },
+    {
+      "id": "m_msfmlxvtpydxga",
+      "userId": "u_msepr5uiihpy2o",
+      "tag": "General",
+      "text": "मैं जा फो।",
+      "unit": "unit a",
+      "time": "2026-08-05T05:08:03.401Z"
+    },
+    {
+      "id": "m_msfmig0dn66mgz",
+      "userId": "u_msepr5uiihpy2o",
+      "tag": "General",
+      "text": "ನನಗೆ ಬಂದು ಕೆಲಸ ಬೇಕಾಯ್ತದೆ.",
+      "unit": "unit a",
+      "time": "2026-08-05T05:05:20.269Z"
+    },
+    {
+      "id": "m_msfmhlyjxnu2qz",
+      "userId": "u_msepr5uiihpy2o",
+      "tag": "General",
+      "text": "ఎప్పుడు రాదు గమ్ముంటది నేను నాలెడ్జ్ మెమరీకి.",
+      "unit": "unit a",
+      "time": "2026-08-05T05:04:41.323Z"
+    },
+    {
+      "id": "m_msfmhhx3tcsu44",
+      "userId": "u_msepr5uiihpy2o",
+      "tag": "General",
+      "text": "నమస్కారం.",
+      "unit": "unit a",
+      "time": "2026-08-05T05:04:36.087Z"
+    },
+    {
+      "id": "m_msfm6wk9hinvxq",
+      "userId": "u_msepr5uiihpy2o",
+      "tag": "General",
+      "text": "Hello Satya, I need a work by today 7:00 PM.",
+      "unit": "unit a",
+      "time": "2026-08-05T04:56:21.849Z"
+    },
+    {
       "id": "m_mserltw188k7vc",
       "userId": "u_msepr5uiihpy2o",
       "tag": "General",
@@ -145,7 +217,86 @@
       "skill": "cleaning"
     }
   ],
-  "workshareRequests": [],
+  "workshareRequests": [
+    {
+      "id": "w_msfqorw0dpna1p",
+      "userId": "u_msepr5uiihpy2o",
+      "text": "எனக்கு இரவு 7:00 மணி க்கு ஒரு டெய்லரிங் வேலை வேண்டும்.",
+      "matchedTaskIds": [
+        "t1",
+        "t2"
+      ],
+      "time": "2026-08-05T07:02:14.064Z"
+    },
+    {
+      "id": "w_msfqd8quo7g2sy",
+      "userId": "u_msepr5uiihpy2o",
+      "text": "ஒரு பில்லு போடுற வேலை வாங்கி கொடு.",
+      "matchedTaskIds": [
+        "t1",
+        "t2"
+      ],
+      "time": "2026-08-05T06:53:16.038Z"
+    },
+    {
+      "id": "w_msfqc40kr83vb7",
+      "userId": "u_msepr5uiihpy2o",
+      "text": "எனக்கு வந்து ஒரு டைலரிங் வேலை வேணும்.",
+      "matchedTaskIds": [
+        "t1",
+        "t2"
+      ],
+      "time": "2026-08-05T06:52:23.252Z"
+    },
+    {
+      "id": "w_msfq8c4y224k8f",
+      "userId": "u_msepr5uiihpy2o",
+      "text": "What are the trending jobs in AE based rules?",
+      "matchedTaskIds": [
+        "t1",
+        "t2"
+      ],
+      "time": "2026-08-05T06:49:27.154Z"
+    },
+    {
+      "id": "w_msfmk72y1f7vb6",
+      "userId": "u_msepr5uiihpy2o",
+      "text": "నాకు జాబ్ కావాలన్నా ఏమి చేసేది నాకు గుర్తు లేదు. ఏం చేసేది అర్థమైందా చెప్పుంటా ఉండావు.",
+      "matchedTaskIds": [
+        "t1",
+        "t2"
+      ],
+      "time": "2026-08-05T05:06:42.010Z"
+    },
+    {
+      "id": "w_msfmj9lolgygm9",
+      "userId": "u_msepr5uiihpy2o",
+      "text": "ನನಗೆ ಕೆಲಸ ಬೇಕಾಯ್ತದೆ. ನಾನು ಏನು ಮಾಡ್ತಾ ಇರೋದು ನನಗೆ ಗೊತ್ತಿಲ್ಲ ನನಗೆ.",
+      "matchedTaskIds": [
+        "t1",
+        "t2"
+      ],
+      "time": "2026-08-05T05:05:58.620Z"
+    },
+    {
+      "id": "w_msfm7r63rqcc69",
+      "userId": "u_msepr5uiihpy2o",
+      "text": "வணக்கம். எனக்கு இன்று இரவு 7:00 மணி க்கு ஸ்டிச்சிங் வேலை வேண்டும்.",
+      "matchedTaskIds": [
+        "t2"
+      ],
+      "time": "2026-08-05T04:57:01.515Z"
+    },
+    {
+      "id": "w_msflq976xrw4oe",
+      "userId": "u_msepr5uiihpy2o",
+      "text": "வணக்கம். எனக்கு இரவு 7:00 மணி க்கு ஒரே ஸ்டெச்சிங் வேலை வேண்டும்.",
+      "matchedTaskIds": [
+        "t2"
+      ],
+      "time": "2026-08-05T04:43:25.075Z"
+    }
+  ],
   "employerJobs": [],
   "problems": [
     {
@@ -202,7 +353,41 @@
     "security": 45,
     "tailoring": 55
   },
-  "fairwageEstimates": [],
+  "fairwageEstimates": [
+    {
+      "id": "f_msfquk1v8zjhl1",
+      "userId": "u_msepr5uiihpy2o",
+      "type": "cutting",
+      "hours": 8,
+      "rate": 55,
+      "wageLow": 418,
+      "wageHigh": 484,
+      "employerCost": 590,
+      "time": "2026-08-05T07:06:43.843Z"
+    },
+    {
+      "id": "f_msfmaegnvfic8m",
+      "userId": "u_msepr5uiihpy2o",
+      "type": "cutting",
+      "hours": 8,
+      "rate": 55,
+      "wageLow": 418,
+      "wageHigh": 484,
+      "employerCost": 590,
+      "time": "2026-08-05T04:59:05.015Z"
+    },
+    {
+      "id": "f_msflsd0lxnel4d",
+      "userId": "u_msepr5uiihpy2o",
+      "type": "cutting",
+      "hours": 8,
+      "rate": 55,
+      "wageLow": 418,
+      "wageHigh": 484,
+      "employerCost": 590,
+      "time": "2026-08-05T04:45:03.333Z"
+    }
+  ],
   "safetyReports": [
     {
       "id": "s1",

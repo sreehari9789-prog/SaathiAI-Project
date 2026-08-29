@@ -34,20 +34,25 @@ const GREETINGS = {
   'bn-IN': 'নমস্কার! আমি সাথী, আপনার কাজের সহকারী। অনুগ্রহ করে এখন বলুন।',
   'gu-IN': 'નમસ્તે! હું સાથી છું, તમારો કાર્ય સહાયક. કૃપા કરીને હવે બોલો.',
   'kn-IN': 'ನಮಸ್ಕಾರ! ನಾನು ಸಾಥಿ, ನಿಮ್ಮ ಕೆಲಸದ ಸಹಾಯಕ. ದಯವಿಟ್ಟು ಈಗ ಮಾತನಾಡಿ.',
-  'pa-IN': 'ਸਤ ਸ੍ਰੀ ਅਕਾਲ! ਮੈਂ ਸਾਥੀ ਹਾਂ, ਤੁਹਾਡਾ ਕੰਮ ਸਹਾਇਕ। ਕਿਰਪਾ ਕਰਕੇ ਹੁਣ ਬੋਲੋ।'
+  'pa-IN': 'ਸਤ ਸ੍ਰੀ ਅਕਾਲ! ਮੈਂ ਸਾਥੀ ਹਾਂ, ਤੁਹਾਡਾ ਕੰਮ ਸਹਾਇਕ। ਕਿਰਪਾ ਕਰਕੇ ਹੁਣ ਬੋਲੋ।',
+  'ml-IN': 'നമസ്കാരം! ഞാൻ സാഥി, നിങ്ങളുടെ ജോലി സഹായി. ദയവായി ഇപ്പോൾ സംസാരിക്കൂ.',
+  'ur-IN': 'سلام! میں ساتھی ہوں، آپ کا کام کا معاون۔ براہ کرم اب بولیے۔'
 };
 
 function saathiGreet(lang, onDone) {
-  const greeting = GREETINGS[lang] || GREETINGS['en-IN'];
+  let langKey = lang || 'en-IN';
+  let greeting = GREETINGS[langKey] || GREETINGS[langKey.split('-')[0]] || GREETINGS['en-IN'];
   if (!('speechSynthesis' in window)) { onDone && onDone(); return; }
   const u = new SpeechSynthesisUtterance(greeting);
-  u.lang = (lang && lang !== 'auto') ? lang : 'en-IN';
+  u.lang = (langKey && langKey !== 'auto') ? langKey : 'en-IN';
   u.rate = 0.95;
   u.pitch = 1.0;
+  
   const voices = speechSynthesis.getVoices();
-  const shortLang = u.lang.split('-')[0];
-  const matchedVoice = voices.find(v => v.lang.startsWith(shortLang));
+  const shortLang = u.lang.split('-')[0].toLowerCase();
+  const matchedVoice = voices.find(v => (v.lang || '').toLowerCase().replace('_', '-').startsWith(shortLang));
   if (matchedVoice) u.voice = matchedVoice;
+  
   u.onend = () => { onDone && onDone(); };
   u.onerror = () => { onDone && onDone(); };
   speechSynthesis.cancel();
@@ -79,8 +84,6 @@ function saathiCreateRecognizer({ onStart, onInterim, onFinal, onError, onEnd })
   return {
     start(lang) {
       if (lang === 'auto') {
-        // Auto-detect: set to empty string or a broad default
-        // Chrome will try to detect the language automatically
         recognition.lang = '';
       } else {
         recognition.lang = lang || 'en-IN';
@@ -94,20 +97,19 @@ function saathiCreateRecognizer({ onStart, onInterim, onFinal, onError, onEnd })
 function saathiSpeak(text, lang) {
   if (!('speechSynthesis' in window) || !text) return;
   const u = new SpeechSynthesisUtterance(text);
-  // For auto-detect, try to pick a reasonable lang; otherwise use the provided one
+  
+  let targetLang = 'en-IN';
   if (lang && lang !== 'auto') {
-    u.lang = lang;
-  } else {
-    u.lang = 'en-IN'; // fallback for TTS
+    targetLang = lang;
   }
+  u.lang = targetLang;
   u.rate = 0.95;
   u.pitch = 1.0;
   speechSynthesis.cancel();
 
-  // Try to find a matching voice for better pronunciation
   const voices = speechSynthesis.getVoices();
-  const shortLang = u.lang.split('-')[0];
-  const matchedVoice = voices.find(v => v.lang.startsWith(shortLang));
+  const shortLang = targetLang.split('-')[0].toLowerCase();
+  const matchedVoice = voices.find(v => (v.lang || '').toLowerCase().replace('_', '-').startsWith(shortLang));
   if (matchedVoice) u.voice = matchedVoice;
 
   speechSynthesis.speak(u);

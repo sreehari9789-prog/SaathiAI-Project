@@ -61,6 +61,8 @@
         <option value="gu-IN">ગુજરાતી</option>
         <option value="kn-IN">ಕನ್ನಡ</option>
         <option value="pa-IN">ਪੰਜਾਬੀ</option>
+        <option value="ml-IN">മലയാളം</option>
+        <option value="ur-IN">اردو</option>
       </select>
     </div>
     <div class="btn-wrap">
@@ -190,12 +192,17 @@ const recognizer = saathiCreateRecognizer({
     if (!finalText){ statusLine.textContent = "Tap the button and speak in any language"; return; }
     handleSpeech(finalText);
   }
-});
-
 if (!recognizer){
   statusLine.textContent = "Voice recognition not supported in this browser — type your message below";
   micBtn.style.opacity = 0.4;
   micBtn.style.cursor = 'not-allowed';
+}
+
+if (langSelect) {
+  langSelect.addEventListener('change', () => {
+    statusLine.textContent = "Greeting in " + getLangName(langSelect.value) + "…";
+    saathiGreet(langSelect.value);
+  });
 }
 
 micBtn.addEventListener('click', () => {
