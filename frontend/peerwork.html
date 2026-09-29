@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Peer Work & Problem Sharing — SAATHI PM-AJAY (SIH26097)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+
+<div class="gov-ribbon">
+  <span>GOVERNMENT OF INDIA • MINISTRY OF SOCIAL JUSTICE AND EMPOWERMENT (MoSJE)</span>
+  <span>PM-AJAY GIA COMPONENT | SIH 2026</span>
+</div>
+
+<div class="topbar">
+  <a href="index.html" class="brand">
+    <span class="emblem-dot"></span>
+    <div>
+      <span>SAATHI</span>
+      <span class="brand-tagline">Livelihood & NSQF Skilling Voice Assistant</span>
+    </div>
+  </a>
+  <nav id="mainNav">
+    <a href="index.html">Home</a>
+    <a href="assistant.html">Voice Assistant</a>
+    <a href="interview.html">Conversational Interview</a>
+    <a href="nsqf.html">NSQF Skilling</a>
+    <a href="multichannel.html">IVR & WhatsApp</a>
+    <a href="placement.html">Placement Tracking</a>
+    <a href="peerwork.html" class="active">Peer Network</a>
+    <a href="dashboard.html">GIA Dashboard</a>
+  </nav>
+  <div class="nav-right" id="navRight"></div>
+</div>
+
+<main>
+<div class="page-hero">
+  <span class="tag-num accent">FEATURE 10 • COMMUNITY COOPERATION & COLLECTIVE ESCALATION</span>
+  <h1>AI Peer Work & Problem-Sharing Network</h1>
+  <p>Connecting certified PM-AJAY beneficiaries with similar trades and regions to share bulk livelihood orders, troubleshoot machine challenges together, and escalate recurring community bottlenecks.</p>
+  
+  <div class="tool-pills">
+    <a href="assistant.html" class="tool-pill">🎙️ Voice Assistant</a>
+    <a href="interview.html" class="tool-pill">📋 Multi-Turn Interview</a>
+    <a href="nsqf.html" class="tool-pill">🎓 NSQF Recommendations</a>
+    <a href="multichannel.html" class="tool-pill">📞 IVR & WhatsApp Kiosk</a>
+    <a href="placement.html" class="tool-pill">💼 Placement Tracker</a>
+    <a href="fairwage.html" class="tool-pill">💰 FairWage</a>
+    <span class="tool-pill current">🤝 Peer Network</span>
+    <a href="dashboard.html" class="tool-pill">🏛️ GIA Dashboard</a>
+  </div>
+</div>
+
+<div class="page-hero" style="padding-top:0; max-width:1040px; text-align:left;">
+  <div class="grid-2" style="margin-bottom:32px;">
+    <!-- Broadcast Work Order -->
+    <div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <h3 style="margin:0;">Share / Split an Order</h3>
+        <span class="tag-num accent">INTER-UNIT COOPERATION</span>
+      </div>
+      <p style="font-size:0.86rem; color:var(--ink-secondary); margin-bottom:16px;">Got a large festival order or need extra hands? Broadcast to verified peers in your trade cluster.</p>
+      
+      <div class="field">
+        <label for="orderCluster">Target Peer Cluster</label>
+        <select id="orderCluster">
+          <option value="cluster_01">Handloom & Textile Artisans (Varanasi)</option>
+          <option value="cluster_02">Solar & Electrical Technicians (Gaya-Patna)</option>
+          <option value="cluster_03">Footwear & Leather Crafters (Bikaner)</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="orderTitle">Order Description</label>
+        <input type="text" id="orderTitle" placeholder="e.g. Need 4 weavers for 50 Banarasi silk dupatta order">
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="orderQty">Units / Helpers Needed</label>
+          <input type="text" id="orderQty" placeholder="e.g. 4 artisans">
+        </div>
+        <div class="field">
+          <label for="orderDeadline">Target Deadline</label>
+          <input type="text" id="orderDeadline" placeholder="e.g. 10 days">
+        </div>
+      </div>
+
+      <button class="btn btn-primary btn-block" id="broadcastOrderBtn">Broadcast to Peer Cluster →</button>
+    </div>
+
+    <!-- Post Technical Workplace Problem -->
+    <div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <h3 style="margin:0;">Ask Peer & AI Solution</h3>
+        <span class="tag-num green">KNOWLEDGE SHARING</span>
+      </div>
+      <p style="font-size:0.86rem; color:var(--ink-secondary); margin-bottom:16px;">Facing machine trouble or raw material issue? Get instant AI diagnosis and peer advice.</p>
+
+      <div class="field">
+        <label for="probCluster">Your Trade Cluster</label>
+        <select id="probCluster">
+          <option value="cluster_01">Handloom & Textile Artisans (Varanasi)</option>
+          <option value="cluster_02">Solar & Electrical Technicians (Gaya-Patna)</option>
+          <option value="cluster_03">Footwear & Leather Crafters (Bikaner)</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="probDesc">Describe Problem</label>
+        <textarea id="probDesc" placeholder="e.g. Loom shuttle thread keeps breaking at left temple edge, tension screw already loosened..."></textarea>
+      </div>
+
+      <button class="btn btn-accent btn-block" id="submitProbBtn">Get AI Diagnosis & Share →</button>
+    </div>
+  </div>
+
+  <!-- Active Peer Clusters Display -->
+  <h3 style="margin-bottom:16px;">Active PM-AJAY Beneficiary Peer Clusters</h3>
+  <div id="clustersContainer" class="grid-3">
+    <div style="text-align:center; padding:30px; grid-column:1/-1;">Loading active clusters…</div>
+  </div>
+</div>
+</main>
+
+<footer>
+  <span>SAATHI — SMART INDIA HACKATHON 2026 (SIH26097)</span>
+  <span>MINISTRY OF SOCIAL JUSTICE AND EMPOWERMENT (MoSJE)</span>
+</footer>
+
+<script src="assets/js/api.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+const clustersContainer = document.getElementById('clustersContainer');
+const broadcastOrderBtn = document.getElementById('broadcastOrderBtn');
+const submitProbBtn = document.getElementById('submitProbBtn');
+
+async function loadClusters() {
+  try {
+    const data = await Saathi.get('/peerwork/clusters');
+    const clusters = data.clusters || [];
+
+    clustersContainer.innerHTML = clusters.map(c => `
+      <div class="card" style="display:flex; flex-direction:column; justify-content:space-between;">
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <span class="tag-num accent">${c.membersCount} PEERS</span>
+            <span class="tag-num green">${c.activeOrdersShared} ACTIVE ORDERS</span>
+          </div>
+          <h3 style="font-size:1.15rem; margin:0 0 6px;">${c.trade}</h3>
+          <div style="font-size:0.75rem; color:var(--ink-secondary); font-family:'IBM Plex Mono'; margin-bottom:12px;">📍 ${c.district}</div>
+
+          <div style="font-size:0.8rem; font-weight:600; color:var(--primary); margin-bottom:6px;">Recent Community Issues:</div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            ${c.commonProblemsLogged.slice(0, 2).map(p => `
+              <div style="background:var(--panel-dim); padding:8px 10px; border-radius:6px; font-size:0.78rem; line-height:1.4;">
+                <strong>${p.issue}</strong><br>
+                <span style="font-size:0.72rem; color:#15803D;">✓ ${p.status}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+
+        <div style="margin-top:16px;">
+          <button class="btn btn-sm btn-ghost btn-block" onclick="alert('Connected to ${c.trade} Peer WhatsApp Broadcast Group!')">Join WhatsApp Cluster Group</button>
+        </div>
+      </div>
+    `).join('');
+  } catch (err) {
+    clustersContainer.innerHTML = `<div style="color:red; grid-column:1/-1;">Error: ${err.message}</div>`;
+  }
+}
+loadClusters();
+
+broadcastOrderBtn.addEventListener('click', async () => {
+  const clusterId = document.getElementById('orderCluster').value;
+  const orderTitle = document.getElementById('orderTitle').value.trim();
+  const quantity = document.getElementById('orderQty').value.trim();
+  const deadline = document.getElementById('orderDeadline').value.trim();
+
+  if (!orderTitle) {
+    alert("Please enter order details.");
+    return;
+  }
+
+  try {
+    const res = await Saathi.post('/peerwork/share-order', { clusterId, orderTitle, quantity, deadline });
+    alert(res.message);
+    document.getElementById('orderTitle').value = '';
+    loadClusters();
+  } catch (e) {
+    alert(e.message);
+  }
+});
+
+submitProbBtn.addEventListener('click', async () => {
+  const clusterId = document.getElementById('probCluster').value;
+  const problem = document.getElementById('probDesc').value.trim();
+
+  if (!problem) {
+    alert("Please describe the problem.");
+    return;
+  }
+
+  try {
+    const res = await Saathi.post('/peerwork/share-problem', { clusterId, problem });
+    alert(`Problem Shared with Peer Cluster!\n\nAI Diagnostic Suggestion:\n"${res.aiSuggestion}"\n\nYour post has been broadcasted to local fellow technicians.`);
+    document.getElementById('probDesc').value = '';
+    loadClusters();
+  } catch (e) {
+    alert(e.message);
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Multi-Channel Access — SAATHI PM-AJAY (SIH26097)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+
+<div class="gov-ribbon">
+  <span>GOVERNMENT OF INDIA • MINISTRY OF SOCIAL JUSTICE AND EMPOWERMENT (MoSJE)</span>
+  <span>PM-AJAY GIA COMPONENT | SIH 2026</span>
+</div>
+
+<div class="topbar">
+  <a href="index.html" class="brand">
+    <span class="emblem-dot"></span>
+    <div>
+      <span>SAATHI</span>
+      <span class="brand-tagline">Livelihood & NSQF Skilling Voice Assistant</span>
+    </div>
+  </a>
+  <nav id="mainNav">
+    <a href="index.html">Home</a>
+    <a href="assistant.html">Voice Assistant</a>
+    <a href="interview.html">Conversational Interview</a>
+    <a href="nsqf.html">NSQF Skilling</a>
+    <a href="multichannel.html" class="active">IVR & WhatsApp</a>
+    <a href="placement.html">Placement Tracking</a>
+    <a href="dashboard.html">GIA Dashboard</a>
+  </nav>
+  <div class="nav-right" id="navRight"></div>
+</div>
+
+<main>
+<div class="page-hero">
+  <span class="tag-num green">FEATURE 05 • ZERO-BARRIER INCLUSION</span>
+  <h1>Multi-Channel Low-Tech Access Hub</h1>
+  <p>Ensuring no beneficiary is excluded due to device type, digital literacy, or network limitations. Experience how SAATHI operates across feature/keypad phones, WhatsApp voice notes, and rural kiosks.</p>
+  
+  <div class="tool-pills">
+    <a href="assistant.html" class="tool-pill">🎙️ Voice Assistant</a>
+    <a href="interview.html" class="tool-pill">📋 Multi-Turn Interview</a>
+    <a href="nsqf.html" class="tool-pill">🎓 NSQF Recommendations</a>
+    <span class="tool-pill current">📞 IVR & WhatsApp Kiosk</span>
+    <a href="placement.html" class="tool-pill">💼 Placement Tracker</a>
+    <a href="dashboard.html" class="tool-pill">🏛️ GIA Dashboard</a>
+  </div>
+</div>
+
+<div class="page-hero" style="padding-top:0; max-width:960px;">
+  <!-- Tabs Navigation -->
+  <div class="tabs-header" style="justify-content:center;">
+    <button class="tab-btn active" id="tabBtn_ivr" onclick="switchChannel('ivr')">1. IVR Call (Keypad/Button Phone)</button>
+    <button class="tab-btn" id="tabBtn_wa" onclick="switchChannel('wa')">2. WhatsApp Voice Notes</button>
+    <button class="tab-btn" id="tabBtn_kiosk" onclick="switchChannel('kiosk')">3. CSC Village Kiosk Mode</button>
+  </div>
+
+  <!-- CHANNEL 1: IVR TELEPHONY SIMULATOR -->
+  <div id="channel_ivr" class="card" style="max-width:540px; margin:0 auto; padding:30px;">
+    <div style="text-align:center; margin-bottom:16px;">
+      <span class="tag-num accent">TOLL-FREE IVR Telephony (Twilio / Exotel Simulated)</span>
+      <h3 style="margin-top:6px;">Dial: 1800-11-SAATHI</h3>
+      <p style="font-size:0.84rem; color:var(--ink-secondary);">For beneficiaries without smartphones or internet connection.</p>
+    </div>
+
+    <div class="ivr-phone">
+      <div class="ivr-screen" id="ivrScreen">
+        [PM-AJAY HELPLINE INACTIVE]<br>
+        Press green CALL button below to connect with Saathi IVR voice.
+      </div>
+
+      <div class="dialpad-grid">
+        <button class="dial-key" onclick="pressDial('1')">1<span>. -</span></button>
+        <button class="dial-key" onclick="pressDial('2')">2<span>ABC</span></button>
+        <button class="dial-key" onclick="pressDial('3')">3<span>DEF</span></button>
+        <button class="dial-key" onclick="pressDial('4')">4<span>GHI</span></button>
+        <button class="dial-key" onclick="pressDial('5')">5<span>JKL</span></button>
+        <button class="dial-key" onclick="pressDial('6')">6<span>MNO</span></button>
+        <button class="dial-key" onclick="pressDial('7')">7<span>PQRS</span></button>
+        <button class="dial-key" onclick="pressDial('8')">8<span>TUV</span></button>
+        <button class="dial-key" onclick="pressDial('9')">9<span>WXYZ</span></button>
+        <button class="dial-key" onclick="pressDial('*')">*</button>
+        <button class="dial-key" onclick="pressDial('0')">0<span>+</span></button>
+        <button class="dial-key" onclick="pressDial('#')">#</button>
+      </div>
+
+      <div style="display:flex; justify-content:space-around; margin-top:16px;">
+        <button class="btn btn-success" id="callStartBtn" onclick="startIvrCall()" style="border-radius:50%; width:54px; height:54px; padding:0;">
+          📞
+        </button>
+        <button class="btn btn-danger" id="callEndBtn" onclick="endIvrCall()" style="border-radius:50%; width:54px; height:54px; padding:0; background:#DC2626;">
+          📴
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHANNEL 2: WHATSAPP VOICE NOTES SIMULATOR -->
+  <div id="channel_wa" class="card" style="max-width:440px; margin:0 auto; padding:0; display:none; overflow:hidden;">
+    <div class="wa-container">
+      <div class="wa-header">
+        <span style="font-size:1.4rem;">🤖</span>
+        <div>
+          <div>SAATHI PM-AJAY Official</div>
+          <div style="font-size:0.72rem; color:#A7F3D0;">Online • Govt Verified Bot</div>
+        </div>
+      </div>
+      <div class="wa-chat-body" id="waChatBody">
+        <div class="wa-bubble incoming">
+          🙏 *Namaste!* Send a voice note or type your work skills here to receive free PM-AJAY training recommendations.
+        </div>
+      </div>
+      <div class="wa-footer">
+        <input type="text" id="waInput" placeholder="Type a message or skill…" style="flex:1; border:none; border-radius:20px; padding:10px 14px; font-size:0.88rem; outline:none;">
+        <button class="btn btn-success btn-sm" id="waSendBtn" onclick="sendWhatsAppMessage()" style="border-radius:50%; width:38px; height:38px; padding:0;">➤</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHANNEL 3: CSC VILLAGE KIOSK MODE -->
+  <div id="channel_kiosk" class="card" style="display:none; text-align:left;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;">
+      <div>
+        <span class="tag-num accent">COMMON SERVICE CENTRE (CSC) / VILLAGE PANCHAYAT KIOSK</span>
+        <h2 style="margin:4px 0 0;">High-Contrast One-Tap Voice Kiosk</h2>
+      </div>
+      <button class="btn btn-primary" onclick="saathiSpeak('Welcome to the Village Kiosk! Touch any box on screen to learn about PM-AJAY skills.', 'en-IN')">🔊 Audio Assistance</button>
+    </div>
+
+    <div class="grid-3">
+      <div class="card" style="background:#FEF3C7; border:2px solid #F59E0B; cursor:pointer;" onclick="kioskSelect('Handloom Weaving & Saree Craft')">
+        <div style="font-size:2.2rem; margin-bottom:6px;">🧵</div>
+        <h3>Handloom & Stitching</h3>
+        <p style="font-size:0.85rem; color:#78350F;">Free Jacquard & Tailoring toolkits with PM-AJAY grant.</p>
+        <span class="btn btn-sm btn-accent">Touch to Inquire</span>
+      </div>
+
+      <div class="card" style="background:#ECFDF5; border:2px solid #10B981; cursor:pointer;" onclick="kioskSelect('Solar Rooftop Suryamitra')">
+        <div style="font-size:2.2rem; margin-bottom:6px;">☀️</div>
+        <h3>Solar Energy Suryamitra</h3>
+        <p style="font-size:0.85rem; color:#064E3B;">Certified solar installer training with assured placement.</p>
+        <span class="btn btn-sm btn-success">Touch to Inquire</span>
+      </div>
+
+      <div class="card" style="background:#EFF6FF; border:2px solid #3B82F6; cursor:pointer;" onclick="kioskSelect('Electrician & Electronics')">
+        <div style="font-size:2.2rem; margin-bottom:6px;">⚡</div>
+        <h3>Electrician & Mobile Repair</h3>
+        <p style="font-size:0.85rem; color:#1E3A8A;">Hands-on workshop training with free toolkit.</p>
+        <span class="btn btn-sm btn-primary">Touch to Inquire</span>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+
+<footer>
+  <span>SAATHI — SMART INDIA HACKATHON 2026 (SIH26097)</span>
+  <span>MINISTRY OF SOCIAL JUSTICE AND EMPOWERMENT (MoSJE)</span>
+</footer>
+
+<script src="assets/js/api.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/voice.js"></script>
+<script>
+let currentIvrStep = 1;
+let ivrActive = false;
+const ivrScreen = document.getElementById('ivrScreen');
+
+function switchChannel(channel) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tabBtn_' + channel).classList.add('active');
+
+  document.getElementById('channel_ivr').style.display = channel === 'ivr' ? 'block' : 'none';
+  document.getElementById('channel_wa').style.display = channel === 'wa' ? 'block' : 'none';
+  document.getElementById('channel_kiosk').style.display = channel === 'kiosk' ? 'block' : 'none';
+}
+
+// IVR Logic
+async function startIvrCall() {
+  ivrActive = true;
+  currentIvrStep = 1;
+  ivrScreen.innerHTML = "Calling 1800-11-SAATHI…<br>Connecting to MoSJE Gateway…";
+  
+  try {
+    const res = await Saathi.post('/multichannel/ivr', { step: 1 });
+    currentIvrStep = res.step;
+    ivrScreen.innerHTML = `<strong>CONNECTED [CALL ACTIVE]</strong><br><br>${res.responseText}`;
+    saathiSpeak(res.responseText, 'en-IN');
+  } catch (e) {
+    ivrScreen.innerHTML = "Call Failed: " + e.message;
+  }
+}
+
+async function pressDial(digit) {
+  if (!ivrActive) {
+    alert("Please press the green CALL button first to dial into the IVR helpline.");
+    return;
+  }
+  ivrScreen.innerHTML += `<br>[Key Pressed: ${digit}]<br>Processing…`;
+  
+  try {
+    const res = await Saathi.post('/multichannel/ivr', {
+      digit,
+      step: currentIvrStep,
+      speechText: digit === '1' ? 'stitching' : (digit === '2' ? 'electrical' : 'agriculture')
+    });
+    currentIvrStep = res.step;
+    ivrScreen.innerHTML = `<strong>STEP ${currentIvrStep}</strong><br><br>${res.responseText}`;
+    saathiSpeak(res.responseText, 'en-IN');
+  } catch (e) {
+    ivrScreen.innerHTML = "IVR Error: " + e.message;
+  }
+}
+
+function endIvrCall() {
+  ivrActive = false;
+  currentIvrStep = 1;
+  if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+  ivrScreen.innerHTML = "[CALL DISCONNECTED]<br><br>Thank you for using SAATHI IVR Helpline.";
+}
+
+// WhatsApp Logic
+const waChatBody = document.getElementById('waChatBody');
+const waInput = document.getElementById('waInput');
+
+async function sendWhatsAppMessage() {
+  const text = waInput.value.trim();
+  if (!text) return;
+  waInput.value = '';
+
+  waChatBody.innerHTML += `<div class="wa-bubble outgoing">${text}</div>`;
+  waChatBody.scrollTop = waChatBody.scrollHeight;
+
+  try {
+    const res = await Saathi.post('/multichannel/whatsapp', { message: text, lang: 'hi-IN' });
+    waChatBody.innerHTML += `<div class="wa-bubble incoming">${res.reply.replace(/\n/g, '<br>')}</div>`;
+    waChatBody.scrollTop = waChatBody.scrollHeight;
+  } catch (e) {
+    waChatBody.innerHTML += `<div class="wa-bubble incoming" style="color:red;">Error: ${e.message}</div>`;
+  }
+}
+
+waInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') sendWhatsAppMessage();
+});
+
+// Kiosk Mode Select
+function kioskSelect(trade) {
+  saathiSpeak(`You selected ${trade}. Under PM-AJAY GIA, this trade offers 100 percent free training with tool kit grant. Pre-registration recorded for this village kiosk.`, 'en-IN');
+  alert(`CSC Village Kiosk: Registered interest in "${trade}". Pre-registration ticket issued to local Panchayat coordinator.`);
+}
+</script>
+</body>
+</html>

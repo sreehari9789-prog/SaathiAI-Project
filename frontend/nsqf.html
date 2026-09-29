@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NSQF Skilling Engine — SAATHI PM-AJAY (SIH26097)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+
+<div class="gov-ribbon">
+  <span>GOVERNMENT OF INDIA • MINISTRY OF SOCIAL JUSTICE AND EMPOWERMENT (MoSJE)</span>
+  <span>PM-AJAY GIA COMPONENT | SIH 2026</span>
+</div>
+
+<div class="topbar">
+  <a href="index.html" class="brand">
+    <span class="emblem-dot"></span>
+    <div>
+      <span>SAATHI</span>
+      <span class="brand-tagline">Livelihood & NSQF Skilling Voice Assistant</span>
+    </div>
+  </a>
+  <nav id="mainNav">
+    <a href="index.html">Home</a>
+    <a href="assistant.html">Voice Assistant</a>
+    <a href="interview.html">Conversational Interview</a>
+    <a href="nsqf.html" class="active">NSQF Skilling</a>
+    <a href="multichannel.html">IVR & WhatsApp</a>
+    <a href="placement.html">Placement Tracking</a>
+    <a href="dashboard.html">GIA Dashboard</a>
+  </nav>
+  <div class="nav-right" id="navRight"></div>
+</div>
+
+<main>
+<div class="page-hero">
+  <span class="tag-num accent">FEATURE 04 • NSQF ALIGNED RECOMMENDATION & SKILL-GAP ENGINE</span>
+  <h1>NSQF Livelihood & Skilling Pathways</h1>
+  <p>Certified skilling mapped to National Skills Qualifications Framework (NSQF Levels 1–8). Every trade is backed by PM-AJAY Grant-in-Aid (GIA) subsidies, tool kit grants, and guaranteed placement or enterprise funding.</p>
+  
+  <div class="tool-pills">
+    <a href="assistant.html" class="tool-pill">🎙️ Voice Assistant</a>
+    <a href="interview.html" class="tool-pill">📋 Multi-Turn Interview</a>
+    <span class="tool-pill current">🎓 NSQF Recommendations</span>
+    <a href="multichannel.html" class="tool-pill">📞 IVR & WhatsApp Kiosk</a>
+    <a href="placement.html" class="tool-pill">💼 Placement Tracker</a>
+    <a href="dashboard.html" class="tool-pill">🏛️ GIA Dashboard</a>
+  </div>
+</div>
+
+<div class="page-hero" style="padding-top:0; max-width:960px;">
+  <!-- Instant Skill-Gap Finder Widget -->
+  <div class="card" style="text-align:left; margin-bottom:32px; border-top:4px solid var(--accent);">
+    <h3 style="margin-bottom:8px;">Instant Skill-Gap & Livelihood Matching</h3>
+    <p style="color:var(--ink-secondary); font-size:0.9rem; margin-bottom:18px;">Type your existing skills or trade curiosity to view your personalized NSQF training gap analysis.</p>
+    <div style="display:flex; gap:12px; flex-wrap:wrap;">
+      <input type="text" id="skillSearchInput" placeholder="e.g. electrical wiring, stitching, phone repair, weaving, farming..." style="flex:1; min-width:260px; padding:12px 14px; border:1px solid var(--line); border-radius:8px; font-family:'Work Sans'; font-size:0.95rem;">
+      <button class="btn btn-accent" id="analyzeGapBtn">Analyze Skill Gap →</button>
+    </div>
+
+    <div id="gapResultBox" style="display:none; margin-top:20px; padding:16px; background:var(--panel-dim); border-radius:10px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <span class="tag-num green" id="gapReadinessTag">Readiness: 65%</span>
+        <span class="mono" style="font-size:0.78rem; color:var(--primary);">PM-AJAY 100% GIA FUNDED</span>
+      </div>
+      <div id="gapExplanation" style="font-size:0.92rem; line-height:1.55; color:var(--ink);"></div>
+    </div>
+  </div>
+
+  <!-- Sector Filters -->
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:12px;">
+    <h3 style="margin:0; font-size:1.3rem;">PM-AJAY Certified NSQF Trades</h3>
+    <div style="display:flex; gap:8px;">
+      <select id="sectorFilter" style="padding:8px 12px; border-radius:8px; border:1px solid var(--line); font-family:'Work Sans'; font-size:0.85rem;">
+        <option value="all">All Sectors</option>
+        <option value="Apparel">Apparel & Textiles</option>
+        <option value="Green">Green Jobs / Solar</option>
+        <option value="Handicrafts">Handicrafts & Carpet</option>
+        <option value="Healthcare">Healthcare</option>
+        <option value="Automotive">Automotive</option>
+        <option value="Electronics">Electronics & Hardware</option>
+        <option value="Agriculture">Agriculture & Organic</option>
+        <option value="IT-ITeS">IT & Digital Services</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Trade Cards Grid -->
+  <div class="grid-3" id="tradeCardsContainer">
+    <div style="text-align:center; padding:40px; color:var(--ink-secondary); grid-column:1/-1;">Loading NSQF qualification packs…</div>
+  </div>
+</div>
+</main>
+
+<footer>
+  <span>SAATHI — SMART INDIA HACKATHON 2026 (SIH26097)</span>
+  <span>MINISTRY OF SOCIAL JUSTICE AND EMPOWERMENT (MoSJE)</span>
+</footer>
+
+<script src="assets/js/api.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+let allTrades = [];
+const tradeCardsContainer = document.getElementById('tradeCardsContainer');
+const sectorFilter = document.getElementById('sectorFilter');
+const skillSearchInput = document.getElementById('skillSearchInput');
+const analyzeGapBtn = document.getElementById('analyzeGapBtn');
+const gapResultBox = document.getElementById('gapResultBox');
+const gapReadinessTag = document.getElementById('readinessTag');
+const gapExplanation = document.getElementById('gapExplanation');
+
+function renderTrades(trades) {
+  if (!trades.length) {
+    tradeCardsContainer.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:30px;">No trades matched the filter.</div>';
+    return;
+  }
+  tradeCardsContainer.innerHTML = trades.map(t => `
+    <div class="trade-card">
+      <div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+          <span class="trade-badge-nsqf">NSQF Level ${t.nsqfLevel}</span>
+          <span class="tag-num accent">${t.durationWeeks} WEEKS</span>
+        </div>
+        <h3 style="font-size:1.15rem; margin:0 0 4px; line-height:1.25;">${t.tradeName}</h3>
+        <div style="font-size:0.75rem; color:var(--ink-secondary); font-family:'IBM Plex Mono'; margin-bottom:8px;">${t.qpCode} • ${t.sector}</div>
+        <p style="font-size:0.84rem; line-height:1.45; color:#334155; margin-bottom:12px;"><strong>Self-Employment:</strong> ${t.selfEmploymentPotential}</p>
+        <div style="font-size:0.78rem; background:var(--panel-dim); padding:6px 10px; border-radius:6px; margin-bottom:12px;">
+          <strong>Target Wage:</strong> ₹${t.typicalWageRange.min.toLocaleString()} - ₹${t.typicalWageRange.max.toLocaleString()}/mo
+        </div>
+      </div>
+      <div>
+        <div style="font-size:0.74rem; color:#15803D; margin-bottom:10px; font-weight:600;">
+          ✓ ${t.pmAjaySupport}
+        </div>
+        <button class="btn btn-primary btn-sm btn-block" onclick="enrollTrade('${t.tradeName}', '${t.qpCode}')">Register in Batch</button>
+      </div>
+    </div>
+  `).join('');
+  try { gsap.from(".trade-card", { opacity: 0, y: 15, duration: 0.4, stagger: 0.05, ease: "power2.out" }); } catch(e) {}
+}
+
+async function loadTrades() {
+  try {
+    const data = await Saathi.get('/nsqf/trades');
+    allTrades = data.trades || [];
+    renderTrades(allTrades);
+  } catch (err) {
+    tradeCardsContainer.innerHTML = '<div style="color:red; grid-column:1/-1;">Error loading trades: ' + err.message + '</div>';
+  }
+}
+loadTrades();
+
+sectorFilter.addEventListener('change', () => {
+  const val = sectorFilter.value;
+  if (val === 'all') {
+    renderTrades(allTrades);
+  } else {
+    renderTrades(allTrades.filter(t => t.sector.toLowerCase().includes(val.toLowerCase())));
+  }
+});
+
+analyzeGapBtn.addEventListener('click', async () => {
+  const skills = skillSearchInput.value.trim();
+  if (!skills) return;
+  analyzeGapBtn.textContent = 'Analyzing…';
+  try {
+    const res = await Saathi.post('/nsqf/recommend', { skills });
+    const top = res.topRecommendations[0];
+    gapResultBox.style.display = 'block';
+    gapExplanation.innerHTML = `
+      <strong>Best Aligned Trade:</strong> ${top.tradeName} (NSQF Level ${top.nsqfLevel})<br>
+      <strong>Missing Competencies:</strong> ${top.missingSkills.join(', ')}<br>
+      <strong>Training Roadmap:</strong> ${top.trainingHours} hours subsidized training + toolkit subsidy under PM-AJAY.
+    `;
+    renderTrades(res.topRecommendations);
+  } catch (e) {
+    alert(e.message);
+  } finally {
+    analyzeGapBtn.textContent = 'Analyze Skill Gap →';
+  }
+});
+
+function enrollTrade(name, code) {
+  alert(`Beneficiary Pre-Registration Successful!\n\nEnrolled into PM-AJAY GIA Skilling Batch for:\nTrade: ${name}\nQualification Pack: ${code}\n\nYour nearest District Training Partner will contact you for documentation verification.`);
+}
+</script>
+</body>
+</html>

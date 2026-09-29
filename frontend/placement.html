@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Placement & Coordination Tracking — SAATHI PM-AJAY (SIH26097)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+
+<div class="gov-ribbon">
+  <span>GOVERNMENT OF INDIA • MINISTRY OF SOCIAL JUSTICE AND EMPOWERMENT (MoSJE)</span>
+  <span>PM-AJAY GIA COMPONENT | SIH 2026</span>
+</div>
+
+<div class="topbar">
+  <a href="index.html" class="brand">
+    <span class="emblem-dot"></span>
+    <div>
+      <span>SAATHI</span>
+      <span class="brand-tagline">Livelihood & NSQF Skilling Voice Assistant</span>
+    </div>
+  </a>
+  <nav id="mainNav">
+    <a href="index.html">Home</a>
+    <a href="assistant.html">Voice Assistant</a>
+    <a href="interview.html">Conversational Interview</a>
+    <a href="nsqf.html">NSQF Skilling</a>
+    <a href="multichannel.html">IVR & WhatsApp</a>
+    <a href="placement.html" class="active">Placement Tracking</a>
+    <a href="dashboard.html">GIA Dashboard</a>
+  </nav>
+  <div class="nav-right" id="navRight"></div>
+</div>
+
+<main>
+<div class="page-hero">
+  <span class="tag-num accent">FEATURE 06 • POST-TRAINING RETENTION & STAKEHOLDER COORDINATION</span>
+  <h1>Post-Training Placement Tracker</h1>
+  <p>Tracking the full beneficiary lifecycle from NSQF certification to wage placement and enterprise sustainability. Flags inter-departmental coordination gaps across Ministry, State SC Corporations, and Training Partners.</p>
+  
+  <div class="tool-pills">
+    <a href="assistant.html" class="tool-pill">🎙️ Voice Assistant</a>
+    <a href="interview.html" class="tool-pill">📋 Multi-Turn Interview</a>
+    <a href="nsqf.html" class="tool-pill">🎓 NSQF Recommendations</a>
+    <a href="multichannel.html" class="tool-pill">📞 IVR & WhatsApp Kiosk</a>
+    <span class="tool-pill current">💼 Placement Tracker</span>
+    <a href="dashboard.html" class="tool-pill">🏛️ GIA Dashboard</a>
+  </div>
+</div>
+
+<div class="page-hero" style="padding-top:0; max-width:1040px; text-align:left;">
+  <!-- Stakeholder Coordination Gaps Banner -->
+  <div class="card" style="background:#FFFBEB; border-left:4px solid #F59E0B; margin-bottom:24px;">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+      <div>
+        <span class="tag-num accent">INTER-AGENCY COORDINATION ALERT (SIH BRIEF KEY REQUIREMENT)</span>
+        <h3 style="margin:4px 0 6px; font-size:1.1rem; color:#92400E;">3 Ground-Level Coordination Bottlenecks Flagged</h3>
+        <p style="margin:0; font-size:0.86rem; color:#78350F; line-height:1.5;">
+          • <strong>Gaya District:</strong> State SC Corporation MOU pending for Solar Tech batch-08 on-site apprenticeship.<br>
+          • <strong>Varanasi District:</strong> Jacquard card subsidy disbursement delay — 14 weavers awaiting loom delivery.<br>
+          • <strong>Bikaner District:</strong> Artisan micro-credit loan sanction average turnaround: 28 days (target: 14 days).
+        </p>
+      </div>
+      <button class="btn btn-sm btn-accent" onclick="alert('Notification dispatched to State SC Development Corporation Mission Director.')">Escalate to State SDC →</button>
+    </div>
+  </div>
+
+  <!-- Quick Filter Counters -->
+  <div class="grid-4" style="margin-bottom:24px;">
+    <div class="kpi-card">
+      <div class="kpi-title">Total Enrolled</div>
+      <div class="kpi-value" id="countEnrolled">4</div>
+      <div class="kpi-sub">Across 4 Pilot Districts</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-title">Wage Placed</div>
+      <div class="kpi-value" id="countPlaced" style="color:#15803D;">1</div>
+      <div class="kpi-sub">Avg ₹21,500/mo</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-title">Self-Employed Units</div>
+      <div class="kpi-value" id="countEnterprise" style="color:#B45309;">2</div>
+      <div class="kpi-sub">PM-AJAY Capital Grant</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-title">In Training / Screening</div>
+      <div class="kpi-value" id="countTraining" style="color:#2563EB;">1</div>
+      <div class="kpi-sub">100% GIA Sponsored</div>
+    </div>
+  </div>
+
+  <!-- Beneficiary Records Table -->
+  <div class="card" style="padding:0; overflow:hidden;">
+    <div style="padding:16px 20px; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; align-items:center;">
+      <h3 style="margin:0; font-size:1.15rem;">PM-AJAY Beneficiary Placement Registry</h3>
+      <span class="mono" style="font-size:0.75rem; color:var(--ink-secondary);">Updated in real-time</span>
+    </div>
+    <div style="overflow-x:auto;">
+      <table style="width:100%; border-collapse:collapse; text-align:left; font-size:0.86rem;">
+        <thead style="background:var(--panel-dim); font-family:'IBM Plex Mono'; font-size:0.72rem; color:var(--ink-secondary); text-transform:uppercase;">
+          <tr>
+            <th style="padding:12px 16px;">Beneficiary</th>
+            <th style="padding:12px 16px;">District</th>
+            <th style="padding:12px 16px;">NSQF Trade</th>
+            <th style="padding:12px 16px;">Status</th>
+            <th style="padding:12px 16px;">Earnings / Outcome</th>
+            <th style="padding:12px 16px;">Retention</th>
+            <th style="padding:12px 16px;">Action</th>
+          </tr>
+        </thead>
+        <tbody id="beneficiariesTableBody">
+          <tr><td colspan="7" style="padding:20px; text-align:center;">Loading placement records…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</main>
+
+<footer>
+  <span>SAATHI — SMART INDIA HACKATHON 2026 (SIH26097)</span>
+  <span>MINISTRY OF SOCIAL JUSTICE AND EMPOWERMENT (MoSJE)</span>
+</footer>
+
+<script src="assets/js/api.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+const beneficiariesTableBody = document.getElementById('beneficiariesTableBody');
+const countEnrolled = document.getElementById('countEnrolled');
+const countPlaced = document.getElementById('countPlaced');
+const countEnterprise = document.getElementById('countEnterprise');
+const countTraining = document.getElementById('countTraining');
+
+async function loadPlacementData() {
+  try {
+    const data = await Saathi.get('/placement/all');
+    const list = data.beneficiaries || [];
+
+    countEnrolled.textContent = list.length;
+    countPlaced.textContent = list.filter(b => b.placementStatus === 'Placed').length;
+    countEnterprise.textContent = list.filter(b => b.placementStatus === 'Self-Employed').length;
+    countTraining.textContent = list.filter(b => b.placementStatus === 'Under Skilling' || b.placementStatus === 'In-Training').length;
+
+    beneficiariesTableBody.innerHTML = list.map(b => {
+      let badgeStyle = 'background:#EFF6FF; color:#1E40AF;';
+      if (b.placementStatus === 'Placed') badgeStyle = 'background:#ECFDF5; color:#065F46;';
+      else if (b.placementStatus === 'Self-Employed') badgeStyle = 'background:#FEF3C7; color:#92400E;';
+
+      return `
+        <tr style="border-bottom:1px solid var(--line);">
+          <td style="padding:14px 16px;">
+            <strong>${b.name}</strong><br>
+            <span style="font-size:0.75rem; color:var(--ink-secondary); font-family:'IBM Plex Mono';">${b.phone}</span>
+          </td>
+          <td style="padding:14px 16px;">${b.district}, ${b.state}</td>
+          <td style="padding:14px 16px;">
+            <strong>${b.recommendedTrade}</strong><br>
+            <span style="font-size:0.75rem; color:var(--ink-secondary);">NSQF Level ${b.nsqfLevel}</span>
+          </td>
+          <td style="padding:14px 16px;">
+            <span style="display:inline-block; padding:4px 10px; border-radius:100px; font-size:0.74rem; font-weight:600; ${badgeStyle}">
+              ${b.placementStatus}
+            </span>
+          </td>
+          <td style="padding:14px 16px;">
+            ${b.monthlyIncome > 0 ? `<strong>₹${b.monthlyIncome.toLocaleString()}</strong>/mo` : 'Under Skilling'}<br>
+            <span style="font-size:0.74rem; color:var(--ink-secondary);">${b.employer || (b.enterpriseGrantReceived > 0 ? `Grant: ₹${b.enterpriseGrantReceived.toLocaleString()}` : '')}</span>
+          </td>
+          <td style="padding:14px 16px; font-family:'IBM Plex Mono'; font-size:0.8rem;">
+            ${b.retentionMonths > 0 ? `${b.retentionMonths} Months` : 'N/A'}
+          </td>
+          <td style="padding:14px 16px;">
+            <button class="btn btn-sm btn-ghost" onclick="triggerFollowup('${b.id}', '${b.name}')">Follow-up 📞</button>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  } catch (err) {
+    beneficiariesTableBody.innerHTML = `<tr><td colspan="7" style="color:red; padding:20px;">Error: ${err.message}</td></tr>`;
+  }
+}
+loadPlacementData();
+
+async function triggerFollowup(id, name) {
+  try {
+    const res = await Saathi.post('/placement/followup', { beneficiaryId: id });
+    alert(res.message);
+  } catch (e) {
+    alert(e.message);
+  }
+}
+</script>
+</body>
+</html>

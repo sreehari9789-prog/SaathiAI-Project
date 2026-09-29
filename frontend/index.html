@@ -3,233 +3,244 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Voice Assistant — Saathi</title>
+<title>SAATHI — AI Multilingual Voice Assistant (SIH26097 | MoSJE PM-AJAY)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<style>
-  .assistant-shell{ max-width:760px; margin:0 auto; padding:40px 20px 80px; perspective:1600px; }
-  .assistant-console{ background:var(--ink); border-radius:22px; padding:40px 36px; color:var(--paper); box-shadow:0 30px 60px -24px rgba(30,42,46,0.6); transform-style:preserve-3d; }
-  .assistant-console .console-label{ margin-bottom:22px; }
-  .text-fallback{ display:flex; gap:10px; margin-top:18px; }
-  .text-fallback input{ flex:1; background:#141C1F; border:1px solid #2B3A3E; border-radius:8px; padding:11px 14px; color:#EAF2EF; font-family:'Work Sans',sans-serif; }
-  .text-fallback input::placeholder{ color:#5c716c; }
-  .conv-list{ margin-top:36px; display:flex; flex-direction:column; gap:16px; }
-  .conv-item{ background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 20px; transform-style:preserve-3d; }
-  .conv-you{ font-family:'IBM Plex Mono', monospace; font-size:0.75rem; color:var(--steel); margin-bottom:6px; }
-  .conv-you strong{ color:var(--ink); }
-  .conv-said{ font-size:0.98rem; margin:0 0 14px; line-height:1.5; }
-  .conv-reply{ background:#fff; border-left:3px solid var(--marigold); padding:10px 14px; border-radius:8px; font-size:0.92rem; line-height:1.5; margin-bottom:10px; }
-  .conv-tool-link{ font-family:'IBM Plex Mono', monospace; font-size:0.74rem; display:inline-flex; align-items:center; gap:6px; }
-  .empty-conv{ text-align:center; color:var(--steel); padding:30px 0; font-style:italic; }
-</style>
 </head>
 <body>
 
+<div class="gov-ribbon">
+  <span>GOVERNMENT OF INDIA • MINISTRY OF SOCIAL JUSTICE AND EMPOWERMENT (MoSJE)</span>
+  <span>SMART INDIA HACKATHON 2026 • PROBLEM ID: SIH26097</span>
+</div>
+
 <div class="topbar">
-  <a href="index.html" class="brand"><span class="dot"></span> Saathi</a>
-  <button class="mobile-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  <a href="index.html" class="brand">
+    <span class="emblem-dot"></span>
+    <div>
+      <span>SAATHI</span>
+      <span class="brand-tagline">AI Voice Assistant for Livelihood & NSQF Skilling</span>
+    </div>
+  </a>
   <nav id="mainNav">
-    <a href="index.html" data-page="index.html">Home</a>
-    <a href="landing.html" data-page="landing.html">All Tools</a>
-    <a href="dashboard.html" data-page="dashboard.html">Dashboard</a>
+    <a href="index.html" class="active">Home</a>
+    <a href="assistant.html">Voice Assistant</a>
+    <a href="interview.html">Conversational Interview</a>
+    <a href="nsqf.html">NSQF Skilling</a>
+    <a href="multichannel.html">IVR & WhatsApp</a>
+    <a href="placement.html">Placement Tracking</a>
+    <a href="dashboard.html">GIA Dashboard</a>
   </nav>
   <div class="nav-right" id="navRight"></div>
 </div>
 
 <main>
-<div class="page-hero" style="text-align:center;">
-  <span class="tag-num">ONE MIC · FIVE TOOLS</span>
-  <h1>Talk to Saathi</h1>
-  <p style="margin-left:auto; margin-right:auto;">Speak naturally — a machine problem, spare time, a wage question, a hazard, or a concern. Saathi figures out where it belongs and answers back in text and voice.</p>
-</div>
+<!-- Flagship Hero Section -->
+<section style="background:linear-gradient(180deg, #FFFFFF 0%, #F1F5F9 100%); border-bottom:1px solid var(--line); padding:50px 24px 40px;">
+  <div class="page-hero" style="padding-top:0;">
+    <span class="tag-num accent">SMART INDIA HACKATHON 2026 • PROBLEM STATEMENT SIH26097</span>
+    <h1 style="font-size:2.9rem; max-width:920px; margin:12px auto 16px;">
+      AI-Driven Multilingual Voice Assistant for Livelihood Mapping & NSQF Skilling
+    </h1>
+    <p style="font-size:1.15rem; max-width:820px; color:#334155; margin-bottom:28px;">
+      Empowering Scheduled Caste (SC) communities under PM-AJAY (Grant-in-Aid component). Replacing text-heavy digital systems with natural, empathetic voice dialogues across feature phones, WhatsApp, and web kiosks.
+    </p>
 
-<div class="assistant-shell">
-  <div class="assistant-console" id="consoleCard">
-    <div class="console-label">
-      <span>PUSH TO TALK</span>
-      <select class="lang-select" id="langSelect">
-        <option value="auto">🌐 Auto-detect</option>
-        <option value="en-IN">English</option>
-        <option value="hi-IN">हिन्दी</option>
-        <option value="ta-IN">தமிழ்</option>
-        <option value="te-IN">తెలుగు</option>
-        <option value="mr-IN">मराठी</option>
-        <option value="bn-IN">বাংলা</option>
-        <option value="gu-IN">ગુજરાતી</option>
-        <option value="kn-IN">ಕನ್ನಡ</option>
-        <option value="pa-IN">ਪੰਜਾਬੀ</option>
-        <option value="ml-IN">മലയാളം</option>
-        <option value="ur-IN">اردو</option>
-      </select>
-    </div>
-    <div class="btn-wrap">
-      <button class="mic-btn large" id="micBtn" aria-label="Push to talk">
-        <span class="ring"></span><span class="ring r2"></span><span class="ring r3"></span>
-        <svg viewBox="0 0 24 24"><path d="M12 14a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v5a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11h-2z"/></svg>
-      </button>
-    </div>
-    <div class="status-line" id="statusLine">Tap the button and speak in any language above</div>
-    <div class="readout" id="readout"><span class="placeholder">Transcript will appear here…</span></div>
-    <div style="text-align:center;"><span class="intent-badge" id="intentBadge">detected: —</span></div>
-    <div class="reply-box" id="replyBox">
-      <div class="reply-label"><svg class="speaker-icon" viewBox="0 0 24 24" fill="#E8963C"><path d="M3 10v4h4l5 5V5L7 10H3z"/></svg> Saathi replies</div>
-      <div class="reply-text" id="replyText">—</div>
+    <div style="display:flex; justify-content:center; gap:14px; flex-wrap:wrap; margin-bottom:32px;">
+      <a href="assistant.html" class="btn btn-primary" style="padding:0 26px; height:50px; font-size:0.95rem;">
+        🎙️ Launch Dedicated Voice Assistant
+      </a>
+      <a href="interview.html" class="btn btn-accent" style="padding:0 24px; height:50px; font-size:0.95rem;">
+        📋 Start Voice Interview (Slot-Filling)
+      </a>
+      <a href="multichannel.html" class="btn btn-ghost" style="padding:0 20px; height:50px; font-size:0.95rem;">
+        📞 Test IVR & WhatsApp Kiosk
+      </a>
     </div>
 
-    <div class="text-fallback">
-      <input type="text" id="typeInput" placeholder="Or type instead of speaking…">
-      <button class="btn btn-accent" id="typeSendBtn">Send</button>
+    <!-- Quick Multilingual Voice Preview -->
+    <div style="display:inline-flex; align-items:center; gap:8px; background:var(--panel-dim); border:1px solid var(--line); padding:8px 16px; border-radius:99px; font-family:'IBM Plex Mono'; font-size:0.78rem;">
+      <span style="color:#15803D;">● Live Engine Active:</span>
+      <span>Recognizes speech & responds out loud in 12+ Indian Languages</span>
     </div>
   </div>
+</section>
 
-  <h3 style="margin-top:40px;">Conversation history</h3>
-  <div class="conv-list" id="convList">
-    <div class="empty-conv">Nothing yet — say something or type a message above.</div>
+<!-- The 10 Core Features Grid (Official SIH Implementation) -->
+<section style="max-width:1120px; margin:40px auto; padding:0 24px;">
+  <div style="text-align:center; margin-bottom:32px;">
+    <span class="tag-num green">COMPLETE HACKATHON DELIVERABLE</span>
+    <h2 style="font-size:2.1rem; margin:6px 0;">All 10 Core Features Fully Implemented</h2>
+    <p style="color:var(--ink-secondary); max-width:700px; margin:0 auto;">
+      Each feature maps directly to the official MoSJE PM-AJAY problem statement requirements and livelihood sustainability lifecycle.
+    </p>
   </div>
-</div>
+
+  <div class="grid-3" style="gap:22px;">
+    <!-- Feature 1 -->
+    <a href="interview.html" class="card" style="border-top:4px solid #0A2647;">
+      <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+        <span class="tag-num">FEATURE 01</span>
+        <span style="font-size:1.4rem;">📋</span>
+      </div>
+      <h3 style="font-size:1.2rem; margin-bottom:6px;">Multi-Turn Conversational Voice Interview</h3>
+      <p style="font-size:0.86rem; color:var(--ink-secondary); line-height:1.5;">
+        Natural back-and-forth dialogue collecting education, family trade, livelihood, skills, mobility, and preferences with real-time slot-filling.
+      </p>
+      <span class="conv-tool-link" style="color:var(--primary); margin-top:8px;">Open Interview Demo →</span>
+    </a>
+
+    <!-- Feature 2 -->
+    <a href="assistant.html" class="card" style="border-top:4px solid #E8963C;">
+      <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+        <span class="tag-num accent">FEATURE 02</span>
+        <span style="font-size:1.4rem;">🎙️</span>
+      </div>
+      <h3 style="font-size:1.2rem; margin-bottom:6px;">Multilingual & Dialect Speech (ASR + TTS)</h3>
+      <p style="font-size:0.86rem; color:var(--ink-secondary); line-height:1.5;">
+        Understands and speaks back in regional Indian languages with code-mixed speech recognition, live audio waveform visualizer, and accent matching.
+      </p>
+      <span class="conv-tool-link" style="color:var(--accent-gold); margin-top:8px;">Open Voice Console →</span>
+    </a>
+
+    <!-- Feature 3 & 4 -->
+    <a href="nsqf.html" class="card" style="border-top:4px solid #2E7D32;">
+      <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+        <span class="tag-num green">FEATURE 03 & 04</span>
+        <span style="font-size:1.4rem;">🎓</span>
+      </div>
+      <h3 style="font-size:1.2rem; margin-bottom:6px;">NSQF Recommendation & Skill-Gap Matrix</h3>
+      <p style="font-size:0.86rem; color:var(--ink-secondary); line-height:1.5;">
+        Maps candidate competencies to certified NSQF Levels 1-8 Qualification Packs (QP-NOS), calculating skill gaps and readiness scores.
+      </p>
+      <span class="conv-tool-link" style="color:#2E7D32; margin-top:8px;">Explore NSQF Pathways →</span>
+    </a>
+
+    <!-- Feature 5 -->
+    <a href="multichannel.html" class="card" style="border-top:4px solid #F59E0B;">
+      <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+        <span class="tag-num accent">FEATURE 05</span>
+        <span style="font-size:1.4rem;">📞</span>
+      </div>
+      <h3 style="font-size:1.2rem; margin-bottom:6px;">Multi-Channel Low-Tech Access Simulator</h3>
+      <p style="font-size:0.86rem; color:var(--ink-secondary); line-height:1.5;">
+        Interactive 3-in-1 simulator: IVR Keypad phone dialpad with spoken prompts, WhatsApp Voice Notes bot, and CSC Village Kiosk mode.
+      </p>
+      <span class="conv-tool-link" style="color:#D97706; margin-top:8px;">Test Low-Tech Channels →</span>
+    </a>
+
+    <!-- Feature 6 -->
+    <a href="placement.html" class="card" style="border-top:4px solid #3B82F6;">
+      <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+        <span class="tag-num">FEATURE 06</span>
+        <span style="font-size:1.4rem;">💼</span>
+      </div>
+      <h3 style="font-size:1.2rem; margin-bottom:6px;">Post-Training Placement & Retention Tracking</h3>
+      <p style="font-size:0.86rem; color:var(--ink-secondary); line-height:1.5;">
+        Tracks post-skilling wage outcomes, micro-enterprise capital grants, employer links, retention months, and automated follow-ups.
+      </p>
+      <span class="conv-tool-link" style="color:#2563EB; margin-top:8px;">View Placement Registry →</span>
+    </a>
+
+    <!-- Feature 7 -->
+    <a href="interview.html" class="card" style="border-top:4px solid #8B5CF6;">
+      <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+        <span class="tag-num">FEATURE 07</span>
+        <span style="font-size:1.4rem;">🤝</span>
+      </div>
+      <h3 style="font-size:1.2rem; margin-bottom:6px;">Empathetic, Non-Administrative Tone</h3>
+      <p style="font-size:0.86rem; color:var(--ink-secondary); line-height:1.5;">
+        Adaptive sentiment detection ensuring beneficiaries feel respected, guided, and encouraged rather than intimidated by administrative bureaucracy.
+      </p>
+      <span class="conv-tool-link" style="color:#7C3AED; margin-top:8px;">Experience Empathetic AI →</span>
+    </a>
+
+    <!-- Feature 8 -->
+    <a href="dashboard.html" class="card" style="border-top:4px solid #065F46;">
+      <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+        <span class="tag-num green">FEATURE 08</span>
+        <span style="font-size:1.4rem;">🏛️</span>
+      </div>
+      <h3 style="font-size:1.2rem; margin-bottom:6px;">MoSJE PM-AJAY GIA Mission Dashboard</h3>
+      <p style="font-size:0.86rem; color:var(--ink-secondary); line-height:1.5;">
+        Administrative oversight for Ministry & State SC Corporations: GIA fund allocation vs utilization, district perspective plans, and consultant matching.
+      </p>
+      <span class="conv-tool-link" style="color:#065F46; margin-top:8px;">Open GIA Dashboard →</span>
+    </a>
+
+    <!-- Feature 9 -->
+    <a href="fairwage.html" class="card" style="border-top:4px solid #D97706;">
+      <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+        <span class="tag-num accent">FEATURE 09</span>
+        <span style="font-size:1.4rem;">💰</span>
+      </div>
+      <h3 style="font-size:1.2rem; margin-bottom:6px;">AI Fair-Wage Estimator</h3>
+      <p style="font-size:0.86rem; color:var(--ink-secondary); line-height:1.5;">
+        Dynamic advisory wage calculation ensuring beneficiaries negotiate fair compensation above statutory minimum floor levels.
+      </p>
+      <span class="conv-tool-link" style="color:#D97706; margin-top:8px;">Calculate Fair Wage →</span>
+    </a>
+
+    <!-- Feature 10 -->
+    <a href="peerwork.html" class="card" style="border-top:4px solid #0284C7;">
+      <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+        <span class="tag-num">FEATURE 10</span>
+        <span style="font-size:1.4rem;">🌐</span>
+      </div>
+      <h3 style="font-size:1.2rem; margin-bottom:6px;">AI Peer Work & Problem-Sharing Network</h3>
+      <p style="font-size:0.86rem; color:var(--ink-secondary); line-height:1.5;">
+        Connects verified artisans & technicians to share bulk orders, resolve technical issues, and collectively escalate community bottlenecks.
+      </p>
+      <span class="conv-tool-link" style="color:#0284C7; margin-top:8px;">Join Peer Network →</span>
+    </a>
+  </div>
+</section>
+
+<!-- System Architecture & Impact Banner -->
+<section style="background:#09192C; color:#fff; padding:48px 24px; margin-top:40px;">
+  <div style="max-width:1040px; margin:0 auto;">
+    <div style="text-align:center; margin-bottom:30px;">
+      <span class="tag-num accent">PM-AJAY GIA ARCHITECTURE</span>
+      <h2 style="color:#fff; font-size:2rem; margin:6px 0;">How SAATHI Works Across The Livelihood Journey</h2>
+    </div>
+
+    <div class="grid-4" style="text-align:center;">
+      <div style="background:rgba(255,255,255,0.06); padding:20px; border-radius:12px; border:1px solid rgba(255,255,255,0.1);">
+        <div style="font-size:2rem; margin-bottom:8px;">📞</div>
+        <h4 style="color:#F8FAFC; margin-bottom:4px;">1. Multi-Channel Access</h4>
+        <p style="font-size:0.8rem; color:#94A3B8; line-height:1.4;">IVR call, WhatsApp voice note, or village kiosk initiation without smartphone dependency.</p>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.06); padding:20px; border-radius:12px; border:1px solid rgba(255,255,255,0.1);">
+        <div style="font-size:2rem; margin-bottom:8px;">🧠</div>
+        <h4 style="color:#F8FAFC; margin-bottom:4px;">2. Empathetic Dialogue</h4>
+        <p style="font-size:0.8rem; color:#94A3B8; line-height:1.4;">Multi-turn conversational interview filling profile slots & assessing skill gaps in regional dialect.</p>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.06); padding:20px; border-radius:12px; border:1px solid rgba(255,255,255,0.1);">
+        <div style="font-size:2rem; margin-bottom:8px;">🎯</div>
+        <h4 style="color:#F8FAFC; margin-bottom:4px;">3. NSQF Skilling Match</h4>
+        <p style="font-size:0.8rem; color:#94A3B8; line-height:1.4;">Precision mapping to 100% GIA subsidized training batches with tool kit grant.</p>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.06); padding:20px; border-radius:12px; border:1px solid rgba(255,255,255,0.1);">
+        <div style="font-size:2rem; margin-bottom:8px;">📈</div>
+        <h4 style="color:#F8FAFC; margin-bottom:4px;">4. Sustainable Placement</h4>
+        <p style="font-size:0.8rem; color:#94A3B8; line-height:1.4;">Post-training wage verification, financial consultant matching, and peer network collaboration.</p>
+      </div>
+    </div>
+  </div>
+</section>
 </main>
 
 <footer>
-  <span>SAATHI — MSME IDEA HACKATHON 6.0</span>
-  <span id="clock"></span>
+  <span>SAATHI — SMART INDIA HACKATHON 2026 (SIH26097)</span>
+  <span>MINISTRY OF SOCIAL JUSTICE AND EMPOWERMENT (MoSJE)</span>
 </footer>
 
 <script src="assets/js/api.js"></script>
 <script src="assets/js/app.js"></script>
-<script src="assets/js/voice.js"></script>
-<script>
-saathiInitTilt("#consoleCard", 5);
-
-const micBtn = document.getElementById('micBtn');
-const statusLine = document.getElementById('statusLine');
-const readout = document.getElementById('readout');
-const intentBadge = document.getElementById('intentBadge');
-const langSelect = document.getElementById('langSelect');
-const replyBox = document.getElementById('replyBox');
-const replyText = document.getElementById('replyText');
-const convList = document.getElementById('convList');
-const typeInput = document.getElementById('typeInput');
-const typeSendBtn = document.getElementById('typeSendBtn');
-let recognizing = false;
-let conversation = [];
-
-function renderConversation(){
-  if (!conversation.length){
-    convList.innerHTML = '<div class="empty-conv">Nothing yet — say something or type a message above.</div>';
-    return;
-  }
-  convList.innerHTML = conversation.map(c => {
-    const meta = INTENT_META[c.intent] || INTENT_META['memory'];
-    const langLabel = c.langName ? `<span style="background:#E8963C;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.7rem;margin-left:8px;">${c.langName}</span>` : '';
-    return `
-      <div class="conv-item">
-        <div class="conv-you">YOU SAID ${langLabel}</div>
-        <p class="conv-said">${c.said}</p>
-        <div class="conv-reply">${c.reply}</div>
-        <a href="${c.featurePage || meta.page}" class="conv-tool-link" style="color:${meta.color};">
-          ${meta.icon || '🔗'} Routed to ${c.featureLabel || meta.label} → open tool
-        </a>
-      </div>`;
-  }).join('');
-  try { gsap.from(".conv-item", {opacity:0, y:16, duration:0.5, stagger:0.05, ease:"power2.out"}); } catch(e) {}
-}
-
-async function handleSpeech(text){
-  if (!text) return;
-  statusLine.textContent = "Got it — routing to the right tool…";
-  const selectedLang = langSelect.value;
-  try {
-    const res = await saathiAskAssistant(text, selectedLang);
-    const meta = INTENT_META[res.intent] || INTENT_META['memory'];
-    intentBadge.textContent = "detected: " + (meta.icon || '') + ' ' + (res.featureLabel || meta.label);
-    gsap.fromTo(intentBadge, {opacity:0, y:6}, {opacity:1, y:0, duration:0.35});
-    replyText.textContent = res.replyText;
-    replyBox.classList.add('show');
-    try { gsap.fromTo(replyBox, {opacity:0, y:10}, {opacity:1, y:0, duration:0.4}); } catch(e) {}
-
-    // Use the detected language for TTS so the reply is spoken in the user's language
-    const ttsLang = res.detectedLang || selectedLang;
-    saathiSpeak(res.replyText, ttsLang);
-
-    statusLine.textContent = (meta.icon || '🔗') + " Routed to " + (res.featureLabel || meta.label);
-
-    // Determine language name for the badge
-    let langName = '';
-    if (ttsLang && ttsLang !== 'auto') {
-      langName = getLangName(ttsLang);
-    }
-
-    conversation.unshift({
-      said: text,
-      reply: res.replyText,
-      intent: res.intent,
-      featurePage: res.featurePage,
-      featureLabel: res.featureLabel,
-      langName: langName
-    });
-    renderConversation();
-  } catch (e) {
-    statusLine.textContent = e.message;
-  }
-}
-
-const recognizer = saathiCreateRecognizer({
-  onStart(){
-    recognizing = true;
-    micBtn.classList.add('listening');
-    statusLine.textContent = "Listening… speak now in any language";
-    gsap.to(intentBadge, {opacity:0, y:6, duration:0.2});
-    replyBox.classList.remove('show');
-  },
-  onInterim(text){ readout.innerHTML = text; },
-  onError(){ statusLine.textContent = "Could not access microphone — try typing below instead"; recognizing=false; micBtn.classList.remove('listening'); },
-  onEnd(finalText){
-    recognizing = false;
-    micBtn.classList.remove('listening');
-    if (!finalText){ statusLine.textContent = "Tap the button and speak in any language"; return; }
-    handleSpeech(finalText);
-  }
-});
-
-if (!recognizer){
-  statusLine.textContent = "Voice recognition not supported in this browser — type your message below";
-  micBtn.style.opacity = 0.4;
-  micBtn.style.cursor = 'not-allowed';
-if (langSelect) {
-  langSelect.addEventListener('change', () => {
-    statusLine.textContent = "Greeting in " + getLangName(langSelect.value) + "…";
-    saathiGreet(langSelect.value);
-  });
-}
-
-micBtn.addEventListener('click', () => {
-  if (!recognizer) return;
-  if (recognizing) { recognizer.stop(); return; }
-  readout.innerHTML = "";
-  gsap.fromTo(micBtn, {scale:0.9}, {scale:1, duration:0.3, ease:"back.out(3)"});
-  statusLine.textContent = "Greeting…";
-  saathiGreet(langSelect.value, () => {
-    statusLine.textContent = "Listening… speak now in any language";
-    recognizer.start(langSelect.value);
-  });
-});
-
-typeSendBtn.addEventListener('click', () => {
-  const text = typeInput.value.trim();
-  if (!text) return;
-  readout.innerHTML = text;
-  typeInput.value = "";
-  handleSpeech(text);
-});
-typeInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') typeSendBtn.click(); });
-
-try {
-  gsap.from(".page-hero > *", {opacity:0, y:20, duration:0.6, stagger:0.08, ease:"power2.out"});
-  gsap.from("#consoleCard", {opacity:0, y:30, rotationX:-10, transformPerspective:1200, duration:0.8, ease:"power3.out", delay:0.15});
-} catch(e) {}
-</script>
 </body>
 </html>

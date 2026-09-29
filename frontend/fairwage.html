@@ -3,105 +3,195 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FairWage Estimator — Saathi</title>
+<title>AI Fair-Wage Estimator — SAATHI PM-AJAY (SIH26097)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<style>.tool-pills{ display:flex; flex-wrap:wrap; gap:8px; margin:18px 0 0; } .tool-pill{ font-family:'IBM Plex Mono',monospace; font-size:0.74rem; padding:6px 12px; border-radius:100px; border:1px solid var(--line); color:var(--steel); } .tool-pill.current{ background:var(--ink); color:var(--paper); border-color:var(--ink); }</style>
 </head>
 <body>
 
+<div class="gov-ribbon">
+  <span>GOVERNMENT OF INDIA • MINISTRY OF SOCIAL JUSTICE AND EMPOWERMENT (MoSJE)</span>
+  <span>PM-AJAY GIA COMPONENT | SIH 2026</span>
+</div>
+
 <div class="topbar">
-  <a href="index.html" class="brand"><span class="dot"></span> Saathi</a>
-  <button class="mobile-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  <a href="index.html" class="brand">
+    <span class="emblem-dot"></span>
+    <div>
+      <span>SAATHI</span>
+      <span class="brand-tagline">Livelihood & NSQF Skilling Voice Assistant</span>
+    </div>
+  </a>
   <nav id="mainNav">
-    <a href="index.html" data-page="index.html">Home</a>
-    <a href="assistant.html" data-page="assistant.html">Assistant</a>
-    <a href="dashboard.html" data-page="dashboard.html">Dashboard</a>
+    <a href="index.html">Home</a>
+    <a href="assistant.html">Voice Assistant</a>
+    <a href="interview.html">Conversational Interview</a>
+    <a href="nsqf.html">NSQF Skilling</a>
+    <a href="multichannel.html">IVR & WhatsApp</a>
+    <a href="placement.html">Placement Tracking</a>
+    <a href="fairwage.html" class="active">FairWage</a>
   </nav>
   <div class="nav-right" id="navRight"></div>
 </div>
 
 <main>
 <div class="page-hero">
-  <span class="tag-num">TOOL 03</span>
-  <h1>FairWage Estimator</h1>
-  <p>Describe the task and hours worked. Get an estimated fair wage range for the worker and the total cost for the employer — advisory only, in plain numbers.</p>
+  <span class="tag-num green">FEATURE 09 • NSQF BENCHMARKED WAGE EMPOWERMENT</span>
+  <h1>AI Fair-Wage Estimator</h1>
+  <p>Helping semi-skilled and skilled beneficiaries understand their market worth and negotiate confidently. Calculated using NSQF levels, trade benchmarks, and statutory minimum wage compliance.</p>
+  
   <div class="tool-pills">
-    <a href="memory.html" class="tool-pill">Knowledge Memory</a>
-    <a href="workshare.html" class="tool-pill">AI WorkShare</a>
-    <span class="tool-pill current">FairWage</span>
-    <a href="safety.html" class="tool-pill">Safety Reporter</a>
-    <a href="grievance.html" class="tool-pill">Helpline</a>
+    <a href="assistant.html" class="tool-pill">🎙️ Voice Assistant</a>
+    <a href="interview.html" class="tool-pill">📋 Multi-Turn Interview</a>
+    <a href="nsqf.html" class="tool-pill">🎓 NSQF Recommendations</a>
+    <a href="multichannel.html" class="tool-pill">📞 IVR & WhatsApp Kiosk</a>
+    <a href="placement.html" class="tool-pill">💼 Placement Tracker</a>
+    <span class="tool-pill current">💰 FairWage</span>
+    <a href="peerwork.html" class="tool-pill">🤝 Peer Network</a>
+    <a href="dashboard.html" class="tool-pill">🏛️ GIA Dashboard</a>
   </div>
 </div>
 
-<section class="section" style="border-top:none;">
-  <div class="card" data-tilt style="max-width:640px;">
-    <h3>Describe the task</h3>
-    <div class="tag-input" style="flex-direction:column; gap:10px;">
-      <select id="workerCategory" style="padding:9px 10px;border-radius:8px;border:1px solid var(--line);width:100%;font-family:inherit;font-size:inherit;">
-        <option value="manufacturing">Manufacturing Workers (assembly line, fabricator, machine operator, quality checker)</option>
-        <option value="artisans">Artisans (handloom weaver, handicraft maker, village industry)</option>
-        <option value="standard">Standard (cutting, welding, weaving, packing, loading, cleaning, stitching)</option>
-        <option value="other">Other (painting, carpentry, plumbing, electrical, masonry, etc.)</option>
+<div class="page-hero" style="padding-top:0; max-width:760px; text-align:left;">
+  <div class="card">
+    <h3 style="margin-bottom:16px;">Calculate Advisory Wage Benchmark</h3>
+    
+    <div class="field">
+      <label for="workerCategory">Worker Category / Sector</label>
+      <select id="workerCategory">
+        <option value="manufacturing">Manufacturing (Assembly Operator, Fabricator, Machine Tech)</option>
+        <option value="solar">Green Energy & Solar (Suryamitra PV Installer, Wireman)</option>
+        <option value="apparel">Apparel & Tailoring (Sewing Machine Operator, Cutting Master)</option>
+        <option value="artisans">Artisans & Handloom (Traditional Jacquard Weaver, Handicraft)</option>
+        <option value="services">Services & IT (Data Entry Operator, Hardware Repair, Healthcare Aide)</option>
+        <option value="construction">Construction & Infrastructure (Electrician, Plumber, Mason)</option>
       </select>
-      <div style="display:flex; gap:10px; width:100%;">
-        <select id="taskType" style="padding:9px 10px;border-radius:8px;border:1px solid var(--line);flex:1;font-family:inherit;font-size:inherit;">
-          <option value="cutting">Cutting</option>
-          <option value="welding">Welding</option>
-          <option value="weaving">Weaving</option>
-          <option value="packing">Packing</option>
-          <option value="loading">Loading / material handling</option>
-          <option value="machine operating">Machine operating</option>
-          <option value="cleaning">Cleaning</option>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="taskType">Specific Trade</label>
+        <select id="taskType">
+          <option value="sewing machine operator">Sewing Machine Operator (NSQF-4)</option>
+          <option value="solar pv installer">Solar PV Installer Suryamitra (NSQF-4)</option>
+          <option value="handloom weaver">Handloom Weaver (NSQF-3)</option>
+          <option value="assistant electrician">Assistant Electrician (NSQF-3)</option>
+          <option value="automotive service technician">Automotive Service Tech (NSQF-4)</option>
+          <option value="general duty assistant">General Duty Assistant / Healthcare (NSQF-4)</option>
+          <option value="data entry operator">Domestic Data Entry Operator (NSQF-4)</option>
+          <option value="mobile repair technician">Mobile & Appliance Repair Tech (NSQF-4)</option>
+          <option value="welding">Fabrication & Welding</option>
+          <option value="organic farming specialist">Organic Farming Specialist</option>
         </select>
-        <input type="text" id="hoursInput" placeholder="Hours (e.g. 8)" style="width:120px;padding:9px 10px;border-radius:8px;border:1px solid var(--line);font-family:inherit;font-size:inherit;">
-        <select id="wagePeriod" style="padding:9px 10px;border-radius:8px;border:1px solid var(--line);flex:1;font-family:inherit;font-size:inherit;">
-          <option value="daily">Daily (8 hrs)</option>
-          <option value="weekly">Weekly (48 hrs)</option>
-          <option value="monthly">Monthly (208 hrs)</option>
+      </div>
+      <div class="field">
+        <label for="nsqfLevel">NSQF Qualification Level</label>
+        <select id="nsqfLevel">
+          <option value="3">NSQF Level 3 (Semi-Skilled / Assistant)</option>
+          <option value="4" selected>NSQF Level 4 (Skilled Technician / Operator)</option>
+          <option value="5">NSQF Level 5 (Master Craftsman / Supervisor)</option>
         </select>
       </div>
     </div>
-    <button class="mini" id="calcWageBtn">Calculate estimate</button>
 
-    <div class="wage-result" id="wageResult" style="display:none;">
-      <div class="wage-box"><div class="label">Worker's fair wage</div><div class="value" id="workerWage">—</div></div>
-      <div class="wage-box"><div class="label">Employer's total cost</div><div class="value" id="employerCost">—</div></div>
+    <div class="field-row">
+      <div class="field">
+        <label for="wagePeriod">Payment Basis</label>
+        <select id="wagePeriod">
+          <option value="monthly" selected>Monthly (26 Working Days)</option>
+          <option value="weekly">Weekly (6 Working Days)</option>
+          <option value="daily">Daily Wage (8 Hours)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="regionSelect">Region / State Labor Schedule</label>
+        <select id="regionSelect">
+          <option value="National Floor Benchmark">National Floor Benchmark (Code on Wages)</option>
+          <option value="Uttar Pradesh">Uttar Pradesh (Varanasi / Lucknow)</option>
+          <option value="Bihar">Bihar (Gaya / Patna)</option>
+          <option value="Tamil Nadu">Tamil Nadu (Salem / Chennai)</option>
+          <option value="Rajasthan">Rajasthan (Bikaner / Jaipur)</option>
+        </select>
+      </div>
     </div>
-    <div class="disclaimer">This is an estimated, advisory figure based on typical task rates. It is not a legally binding wage calculation.</div>
+
+    <button class="btn btn-accent btn-block" id="calcWageBtn" style="margin-top:10px;">Calculate Fair Wage Benchmark →</button>
+
+    <!-- Calculation Results Card -->
+    <div id="wageResult" style="display:none; margin-top:24px; background:var(--panel-dim); border:2px solid var(--accent); border-radius:12px; padding:20px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <span class="tag-num green" id="complianceBadge">✓ Meets Statutory Minimum Wage</span>
+        <button class="btn btn-sm btn-ghost" onclick="speakWageResult()">🔊 Read Aloud</button>
+      </div>
+      
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:16px;">
+        <div style="background:#fff; padding:14px; border-radius:8px; border:1px solid var(--line);">
+          <div style="font-size:0.75rem; color:var(--ink-secondary); font-family:'IBM Plex Mono';">WORKER'S FAIR TAKE-HOME WAGE</div>
+          <div style="font-size:1.6rem; font-weight:700; color:var(--primary); margin:4px 0;" id="workerWage">—</div>
+          <div style="font-size:0.75rem; color:#15803D;">Net expected compensation</div>
+        </div>
+        <div style="background:#fff; padding:14px; border-radius:8px; border:1px solid var(--line);">
+          <div style="font-size:0.75rem; color:var(--ink-secondary); font-family:'IBM Plex Mono';">EMPLOYER'S TOTAL CTC COST</div>
+          <div style="font-size:1.6rem; font-weight:700; color:var(--accent); margin:4px 0;" id="employerCost">—</div>
+          <div style="font-size:0.75rem; color:var(--ink-secondary);">Includes PF, ESIC & Insurance</div>
+        </div>
+      </div>
+
+      <div style="font-size:0.84rem; line-height:1.5; color:var(--ink);" id="wageExplanation"></div>
+    </div>
   </div>
-</section>
+</div>
 </main>
 
 <footer>
-  <span>SAATHI — MSME IDEA HACKATHON 6.0</span>
-  <span id="clock"></span>
+  <span>SAATHI — SMART INDIA HACKATHON 2026 (SIH26097)</span>
+  <span>MINISTRY OF SOCIAL JUSTICE AND EMPOWERMENT (MoSJE)</span>
 </footer>
 
 <script src="assets/js/api.js"></script>
 <script src="assets/js/app.js"></script>
+<script src="assets/js/voice.js"></script>
 <script>
-saathiInitTilt("[data-tilt]", 6);
-saathiScrollReveal();
+let lastSpokenText = '';
 
 document.getElementById('calcWageBtn').addEventListener('click', async () => {
-  const category = document.getElementById('workerCategory').value;
   const type = document.getElementById('taskType').value;
-  const hours = parseFloat(document.getElementById('hoursInput').value) || 8;
+  const nsqfLevel = document.getElementById('nsqfLevel').value;
   const period = document.getElementById('wagePeriod').value;
+  const region = document.getElementById('regionSelect').value;
+
   try {
-    const data = await Saathi.post('/fairwage/estimate', { type, hours, period, category });
-    document.getElementById('workerWage').textContent = `₹${data.result.wageLow} – ₹${data.result.wageHigh} (${period})`;
-    document.getElementById('employerCost').textContent = `₹${data.result.employerCost} (${period})`;
-    const box = document.getElementById('wageResult');
-    box.style.display = 'grid';
-    try { gsap.fromTo(box.children, {opacity:0, y:14, rotationX:-20}, {opacity:1, y:0, rotationX:0, duration:0.5, stagger:0.08, transformPerspective:600}); } catch(e) {}
-  } catch (e) { alert(e.message); }
+    const data = await Saathi.post('/fairwage/estimate', {
+      type,
+      nsqfLevel,
+      hours: 8,
+      period,
+      region
+    });
+
+    const r = data.result;
+    document.getElementById('workerWage').textContent = `₹${r.wageLow.toLocaleString()} – ₹${r.wageHigh.toLocaleString()}`;
+    document.getElementById('employerCost').textContent = `₹${r.employerCost.toLocaleString()}`;
+    document.getElementById('complianceBadge').textContent = `✓ ${r.complianceStatus}`;
+
+    document.getElementById('wageExplanation').innerHTML = `
+      <strong>Statutory Minimum Benchmark:</strong> ₹${r.statutoryMinimumWage.toLocaleString()} (${period}).<br>
+      For a certified <strong>${r.type}</strong> at <strong>NSQF Level ${r.nsqfLevel}</strong> in <strong>${r.region}</strong>, your recommended advisory wage range ensures fair remuneration above poverty thresholds, with standard employer provident fund provisions.
+    `;
+
+    document.getElementById('wageResult').style.display = 'block';
+    lastSpokenText = `For ${r.type} at NSQF Level ${r.nsqfLevel}, the fair expected ${r.period} wage is between ₹${r.wageLow} and ₹${r.wageHigh}. Never accept payment below the statutory minimum.`;
+    saathiSpeak(lastSpokenText, 'en-IN');
+  } catch (err) {
+    alert("Error: " + err.message);
+  }
 });
+
+function speakWageResult() {
+  if (lastSpokenText) saathiSpeak(lastSpokenText, 'en-IN');
+}
 </script>
 </body>
 </html>

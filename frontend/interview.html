@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conversational Voice Interview — SAATHI PM-AJAY (SIH26097)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+
+<div class="gov-ribbon">
+  <span>GOVERNMENT OF INDIA • MINISTRY OF SOCIAL JUSTICE AND EMPOWERMENT (MoSJE)</span>
+  <span>PM-AJAY GIA COMPONENT | SIH 2026</span>
+</div>
+
+<div class="topbar">
+  <a href="index.html" class="brand">
+    <span class="emblem-dot"></span>
+    <div>
+      <span>SAATHI</span>
+      <span class="brand-tagline">Livelihood & NSQF Skilling Voice Assistant</span>
+    </div>
+  </a>
+  <nav id="mainNav">
+    <a href="index.html">Home</a>
+    <a href="assistant.html">Voice Assistant</a>
+    <a href="interview.html" class="active">Conversational Interview</a>
+    <a href="nsqf.html">NSQF Skilling</a>
+    <a href="multichannel.html">IVR & WhatsApp</a>
+    <a href="placement.html">Placement Tracking</a>
+    <a href="dashboard.html">GIA Dashboard</a>
+  </nav>
+  <div class="nav-right" id="navRight"></div>
+</div>
+
+<main>
+<div class="page-hero">
+  <span class="tag-num green">FEATURE 01 & 03 • MULTI-TURN VOICE PROFILING</span>
+  <h1>Empathetic Voice Interview</h1>
+  <p>Replacing tedious government forms with an empathetic, respectful voice dialogue. SAATHI interviews beneficiaries naturally, fills profile slots, assesses skill gaps, and formulates an NSQF skilling pathway.</p>
+  
+  <div class="tool-pills">
+    <a href="assistant.html" class="tool-pill">🎙️ Voice Assistant</a>
+    <span class="tool-pill current">📋 Multi-Turn Interview</span>
+    <a href="nsqf.html" class="tool-pill">🎓 NSQF Recommendations</a>
+    <a href="multichannel.html" class="tool-pill">📞 IVR & WhatsApp Kiosk</a>
+    <a href="placement.html" class="tool-pill">💼 Placement Tracker</a>
+    <a href="dashboard.html" class="tool-pill">🏛️ GIA Dashboard</a>
+  </div>
+</div>
+
+<div class="assistant-shell" style="max-width:880px;">
+  <!-- Slot Filling Tracker -->
+  <div class="card" style="margin-bottom: 24px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+      <span class="tag-num accent">BENEFICIARY PROFILE SLOTS</span>
+      <span class="mono" id="progressText" style="font-size:0.8rem; font-weight:600; color:var(--primary);">0% COMPLETED</span>
+    </div>
+    <div style="background:var(--panel-dim); height:8px; border-radius:99px; overflow:hidden; margin-bottom:14px;">
+      <div id="progressBar" style="background:var(--accent); width:0%; height:100%; transition:width 0.4s ease;"></div>
+    </div>
+    <div class="slots-container">
+      <div class="slot-badge" id="slot_name"><span class="slot-title">1. Name</span><span class="val">Pending</span></div>
+      <div class="slot-badge" id="slot_education"><span class="slot-title">2. Education</span><span class="val">Pending</span></div>
+      <div class="slot-badge" id="slot_familyOccupation"><span class="slot-title">3. Family Trade</span><span class="val">Pending</span></div>
+      <div class="slot-badge" id="slot_currentLivelihood"><span class="slot-title">4. Current Work</span><span class="val">Pending</span></div>
+      <div class="slot-badge" id="slot_skills"><span class="slot-title">5. Skills</span><span class="val">Pending</span></div>
+      <div class="slot-badge" id="slot_mobilityConstraints"><span class="slot-title">6. Mobility</span><span class="val">Pending</span></div>
+      <div class="slot-badge" id="slot_employmentPreference"><span class="slot-title">7. Preference</span><span class="val">Pending</span></div>
+    </div>
+  </div>
+
+  <!-- Interactive Interview Console -->
+  <div class="assistant-console">
+    <div class="console-label">
+      <span>AI INTERVIEWER (EMPATHETIC DIALOGUE MANAGER)</span>
+      <select class="lang-select" id="interviewLang">
+        <option value="hi-IN">हिन्दी (Hindi)</option>
+        <option value="ta-IN">தமிழ் (Tamil)</option>
+        <option value="te-IN">తెలుగు (Telugu)</option>
+        <option value="kn-IN">ಕನ್ನಡ (Kannada)</option>
+        <option value="bn-IN">বাংলা (Bengali)</option>
+        <option value="mr-IN">मराठी (Marathi)</option>
+        <option value="gu-IN">ગુજરાતી (Gujarati)</option>
+        <option value="pa-IN">ਪੰਜਾਬੀ (Punjabi)</option>
+        <option value="ml-IN">മലയാളം (Malayalam)</option>
+        <option value="en-IN">English (Indian)</option>
+      </select>
+    </div>
+
+    <!-- Waveform Visualizer -->
+    <div class="waveform-box" id="waveform">
+      <div class="waveform-bar"></div>
+      <div class="waveform-bar"></div>
+      <div class="waveform-bar"></div>
+      <div class="waveform-bar"></div>
+      <div class="waveform-bar"></div>
+      <div class="waveform-bar"></div>
+      <div class="waveform-bar"></div>
+      <div class="waveform-bar"></div>
+    </div>
+
+    <div class="reply-box show" style="margin-top:0;">
+      <div class="reply-label"><span>🗣️ SAATHI INTERVIEWER ASKS:</span></div>
+      <div class="reply-text" id="aiQuestion" style="font-size:1.1rem; font-weight:500;">
+        Click "Start Interview" below or press the microphone to begin your conversational session.
+      </div>
+    </div>
+
+    <div class="btn-wrap">
+      <button class="mic-btn" id="micBtn" aria-label="Speak your answer">
+        <svg viewBox="0 0 24 24"><path d="M12 14a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v5a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11h-2z"/></svg>
+      </button>
+    </div>
+
+    <div class="status-line" id="statusLine">Press the microphone to answer by voice</div>
+
+    <div class="readout" id="readout">
+      <span class="placeholder">Your spoken answer will appear here…</span>
+    </div>
+
+    <div class="text-fallback">
+      <input type="text" id="typeAnswer" placeholder="Type answer if preferred…">
+      <button class="btn btn-accent" id="submitAnswerBtn">Submit Answer</button>
+      <button class="btn btn-ghost" id="resetInterviewBtn" style="color:#CBD5E1; border-color:#475569;">Reset</button>
+    </div>
+  </div>
+
+  <!-- Assessment & Recommendations Results Area (Revealed on Completion) -->
+  <div id="resultsCard" class="card" style="display:none; margin-top:28px; border:2px solid var(--accent);">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+      <span class="tag-num accent">AI SKILL-GAP & LIVELIHOOD ROADMAP</span>
+      <span class="tag-num green" id="readinessTag">Readiness Score: 78%</span>
+    </div>
+    <h2 id="candidateHeader">Candidate Profiling Complete</h2>
+    <p id="candidateSummaryText" style="color:var(--ink-secondary); line-height:1.6; margin-bottom:20px;"></p>
+
+    <h3 style="margin-bottom:14px; font-size:1.15rem;">Top Aligned NSQF Qualification Packs (PM-AJAY GIA)</h3>
+    <div class="grid-3" id="tradesGrid"></div>
+
+    <div style="margin-top:24px; text-align:center;">
+      <a href="nsqf.html" class="btn btn-primary" style="margin-right:10px;">Explore Full NSQF Skilling Catalog →</a>
+      <a href="placement.html" class="btn btn-accent">View in Placement Pipeline →</a>
+    </div>
+  </div>
+</div>
+</main>
+
+<footer>
+  <span>SAATHI — SMART INDIA HACKATHON 2026 (SIH26097)</span>
+  <span>MINISTRY OF SOCIAL JUSTICE AND EMPOWERMENT (MoSJE)</span>
+</footer>
+
+<script src="assets/js/api.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/voice.js"></script>
+<script>
+const sessionId = 'interview_' + Math.random().toString(36).substring(2, 9);
+const interviewLang = document.getElementById('interviewLang');
+const aiQuestion = document.getElementById('aiQuestion');
+const micBtn = document.getElementById('micBtn');
+const statusLine = document.getElementById('statusLine');
+const readout = document.getElementById('readout');
+const typeAnswer = document.getElementById('typeAnswer');
+const submitAnswerBtn = document.getElementById('submitAnswerBtn');
+const resetInterviewBtn = document.getElementById('resetInterviewBtn');
+const progressBar = document.getElementById('progressBar');
+const progressText = document.getElementById('progressText');
+const resultsCard = document.getElementById('resultsCard');
+const candidateHeader = document.getElementById('candidateHeader');
+const candidateSummaryText = document.getElementById('candidateSummaryText');
+const readinessTag = document.getElementById('readinessTag');
+const tradesGrid = document.getElementById('tradesGrid');
+
+let recognizing = false;
+
+function updateSlotsUI(profile) {
+  if (!profile) return;
+  for (const [k, v] of Object.entries(profile)) {
+    const el = document.getElementById('slot_' + k);
+    if (el) {
+      if (v) {
+        el.classList.add('filled');
+        el.querySelector('.val').textContent = v.length > 18 ? v.slice(0, 16) + '…' : v;
+      } else {
+        el.classList.remove('filled');
+        el.querySelector('.val').textContent = 'Pending';
+      }
+    }
+  }
+}
+
+async function sendAnswer(speechText) {
+  statusLine.textContent = "Processing response…";
+  try {
+    const lang = interviewLang.value;
+    const res = await Saathi.post('/interview/turn', {
+      sessionId,
+      userSpeech: speechText,
+      lang
+    });
+
+    aiQuestion.textContent = res.aiPrompt;
+    progressBar.style.width = res.completionPercentage + '%';
+    progressText.textContent = res.completionPercentage + '% COMPLETED';
+    updateSlotsUI(res.profile);
+
+    // Speak question aloud in selected language
+    saathiSpeak(res.aiPrompt, lang);
+
+    if (res.isComplete && res.recommendations) {
+      statusLine.textContent = "Interview successfully completed!";
+      resultsCard.style.display = 'block';
+      const summary = res.recommendations.candidateSummary;
+      candidateHeader.textContent = "Livelihood Pathway for " + (summary.name || 'Candidate');
+      candidateSummaryText.textContent = `Aspirations mapped to ${summary.targetSector}. Top recommended trade: ${summary.topRecommendedTrade} (NSQF Level ${summary.nsqfLevel}). Eligible for ${summary.pmAjayEligibleScheme}.`;
+      readinessTag.textContent = "Readiness: " + summary.readinessScore + "%";
+
+      tradesGrid.innerHTML = res.recommendations.topRecommendations.map(t => `
+        <div class="trade-card">
+          <div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+              <span class="trade-badge-nsqf">NSQF L-${t.nsqfLevel}</span>
+              <span class="tag-num accent">${t.durationWeeks} WEEKS</span>
+            </div>
+            <h4 style="margin:0 0 6px; font-size:1.05rem;">${t.tradeName}</h4>
+            <p style="font-size:0.78rem; color:var(--ink-secondary); margin:0 0 10px;"><strong>QP Code:</strong> ${t.qpCode}</p>
+            <p style="font-size:0.84rem; line-height:1.45; margin:0 0 10px;">${t.selfEmploymentPotential}</p>
+          </div>
+          <div>
+            <div style="background:var(--panel-dim); padding:8px 10px; border-radius:6px; font-size:0.78rem; margin-bottom:10px;">
+              <strong>Expected:</strong> ₹${t.typicalWageRange.min.toLocaleString()} - ₹${t.typicalWageRange.max.toLocaleString()}/mo
+            </div>
+            <a href="nsqf.html" class="btn btn-primary btn-sm btn-block">Enroll in PM-AJAY GIA</a>
+          </div>
+        </div>
+      `).join('');
+
+      try {
+        gsap.from("#resultsCard", { opacity: 0, y: 30, duration: 0.7, ease: "power2.out" });
+      } catch (e) {}
+    } else {
+      statusLine.textContent = "Tap mic to speak your answer";
+    }
+  } catch (err) {
+    statusLine.textContent = "Error: " + err.message;
+  }
+}
+
+// Initial prompt on load
+async function initInterview() {
+  try {
+    const res = await Saathi.post('/interview/turn', {
+      sessionId,
+      userSpeech: '',
+      lang: interviewLang.value
+    });
+    aiQuestion.textContent = res.aiPrompt;
+    saathiSpeak(res.aiPrompt, interviewLang.value);
+  } catch (e) {
+    console.error(e);
+  }
+}
+initInterview();
+
+const recognizer = saathiCreateRecognizer({
+  onStart() {
+    recognizing = true;
+    micBtn.classList.add('listening');
+    statusLine.textContent = "Listening… Speak your answer naturally";
+  },
+  onInterim(text) {
+    readout.innerHTML = text;
+  },
+  onError(e) {
+    recognizing = false;
+    micBtn.classList.remove('listening');
+    statusLine.textContent = "Could not access microphone — you can type your answer below.";
+  },
+  onEnd(finalText) {
+    recognizing = false;
+    micBtn.classList.remove('listening');
+    if (!finalText) {
+      statusLine.textContent = "No speech detected. Tap mic to try again.";
+      return;
+    }
+    readout.innerHTML = `"${finalText}"`;
+    sendAnswer(finalText);
+  }
+});
+
+micBtn.addEventListener('click', () => {
+  if (!recognizer) {
+    statusLine.textContent = "Speech recognition not supported in browser. Type below.";
+    return;
+  }
+  if (recognizing) {
+    recognizer.stop();
+  } else {
+    recognizer.start(interviewLang.value);
+  }
+});
+
+submitAnswerBtn.addEventListener('click', () => {
+  const ans = typeAnswer.value.trim();
+  if (!ans) return;
+  readout.innerHTML = `"${ans}"`;
+  typeAnswer.value = '';
+  sendAnswer(ans);
+});
+
+typeAnswer.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') submitAnswerBtn.click();
+});
+
+resetInterviewBtn.addEventListener('click', async () => {
+  await Saathi.post('/interview/reset', { sessionId });
+  progressBar.style.width = '0%';
+  progressText.textContent = '0% COMPLETED';
+  resultsCard.style.display = 'none';
+  readout.innerHTML = '<span class="placeholder">Your spoken answer will appear here…</span>';
+  updateSlotsUI({ name:'', education:'', familyOccupation:'', currentLivelihood:'', skills:'', mobilityConstraints:'', employmentPreference:'' });
+  initInterview();
+});
+
+interviewLang.addEventListener('change', () => {
+  initInterview();
+});
+</script>
+</body>
+</html>

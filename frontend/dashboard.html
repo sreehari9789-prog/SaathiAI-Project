@@ -3,104 +3,195 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard — Saathi</title>
+<title>MoSJE PM-AJAY GIA Dashboard — SAATHI (SIH26097)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 </head>
 <body>
 
+<div class="gov-ribbon">
+  <span>GOVERNMENT OF INDIA • MINISTRY OF SOCIAL JUSTICE AND EMPOWERMENT (MoSJE)</span>
+  <span>PM-AJAY GIA COMPONENT | SIH 2026</span>
+</div>
+
 <div class="topbar">
-  <a href="index.html" class="brand"><span class="dot"></span> Saathi</a>
-  <button class="mobile-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  <a href="index.html" class="brand">
+    <span class="emblem-dot"></span>
+    <div>
+      <span>SAATHI</span>
+      <span class="brand-tagline">Livelihood & NSQF Skilling Voice Assistant</span>
+    </div>
+  </a>
   <nav id="mainNav">
-    <a href="index.html" data-page="index.html">Home</a>
-    <a href="assistant.html" data-page="assistant.html">Assistant</a>
-    <a href="dashboard.html" data-page="dashboard.html">Dashboard</a>
+    <a href="index.html">Home</a>
+    <a href="assistant.html">Voice Assistant</a>
+    <a href="interview.html">Conversational Interview</a>
+    <a href="nsqf.html">NSQF Skilling</a>
+    <a href="multichannel.html">IVR & WhatsApp</a>
+    <a href="placement.html">Placement Tracking</a>
+    <a href="dashboard.html" class="active">GIA Dashboard</a>
   </nav>
   <div class="nav-right" id="navRight"></div>
 </div>
 
 <main>
 <div class="page-hero">
-  <span class="tag-num">YOUR SAATHI</span>
-  <h1 id="greeting">Welcome back</h1>
-  <p>A quick look at what you've saved, matched, estimated, and reported — all in one place.</p>
+  <span class="tag-num accent">FEATURE 08 • MINISTRY & FIELD COORDINATION DASHBOARD</span>
+  <h1>PM-AJAY GIA Mission Dashboard</h1>
+  <p>Real-time oversight for Ministry officials (MoSJE), State SC Development Corporations, and District Project Coordinators under the Grant-in-Aid (GIA) Component of PM-AJAY.</p>
+  
+  <div class="tool-pills">
+    <a href="assistant.html" class="tool-pill">🎙️ Voice Assistant</a>
+    <a href="interview.html" class="tool-pill">📋 Multi-Turn Interview</a>
+    <a href="nsqf.html" class="tool-pill">🎓 NSQF Recommendations</a>
+    <a href="multichannel.html" class="tool-pill">📞 IVR & WhatsApp Kiosk</a>
+    <a href="placement.html" class="tool-pill">💼 Placement Tracker</a>
+    <span class="tool-pill current">🏛️ GIA Dashboard</span>
+  </div>
 </div>
 
-<section class="section" style="border-top:none;">
-  <div class="dash-grid" id="statGrid">
-    <div class="stat-card" data-tilt><div class="stat-label">Fixes saved</div><div class="stat-value" id="statMemory">—</div></div>
-    <div class="stat-card" data-tilt><div class="stat-label">WorkShare searches</div><div class="stat-value" id="statWorkshare">—</div></div>
-    <div class="stat-card" data-tilt><div class="stat-label">Wage estimates</div><div class="stat-value" id="statFairwage">—</div></div>
-    <div class="stat-card" data-tilt><div class="stat-label">Safety reports</div><div class="stat-value stat-accent" id="statSafety">—</div></div>
-    <div class="stat-card" data-tilt><div class="stat-label">Helpline entries</div><div class="stat-value" id="statGrievance">—</div></div>
+<div class="page-hero" style="padding-top:0; max-width:1080px; text-align:left;">
+  <!-- Ministry Level KPIs Grid -->
+  <div class="grid-4" style="margin-bottom:28px;">
+    <div class="kpi-card" style="border-top:4px solid var(--primary);">
+      <div class="kpi-title">Target Beneficiaries</div>
+      <div class="kpi-value" id="kpiTarget">4,750</div>
+      <div class="kpi-sub" id="kpiEnrolled">Enrolled: 4,420 (93%)</div>
+    </div>
+    <div class="kpi-card" style="border-top:4px solid var(--accent-green);">
+      <div class="kpi-title">Certified & Placed</div>
+      <div class="kpi-value" id="kpiPlaced" style="color:#15803D;">3,200</div>
+      <div class="kpi-sub" id="kpiRate">Placement Rate: 86%</div>
+    </div>
+    <div class="kpi-card" style="border-top:4px solid var(--accent);">
+      <div class="kpi-title">GIA Funds Allocated</div>
+      <div class="kpi-value" id="kpiFund">₹17.95 Cr</div>
+      <div class="kpi-sub" id="kpiUtil">Utilized: ₹14.72 Cr (82%)</div>
+    </div>
+    <div class="kpi-card" style="border-top:4px solid #2563EB;">
+      <div class="kpi-title">Active Batches</div>
+      <div class="kpi-value" id="kpiBatches" style="color:#2563EB;">23</div>
+      <div class="kpi-sub">Across 4 Pilot Districts</div>
+    </div>
   </div>
 
-  <div class="grid-2">
-    <div class="card">
-      <h3>Recent activity</h3>
-      <div class="activity-feed" id="activityFeed"><div class="empty-note">Loading…</div></div>
+  <!-- Perspective Plans Table -->
+  <div class="card" style="padding:0; overflow:hidden; margin-bottom:30px;">
+    <div style="padding:16px 20px; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; align-items:center;">
+      <h3 style="margin:0; font-size:1.15rem;">District-Wise GIA Perspective Plans & Coordination Status</h3>
+      <span class="tag-num green">MoSJE ANNUAL TARGET MATRIX</span>
     </div>
-    <div class="card">
-      <h3>Jump into a tool</h3>
-      <div class="quick-links">
-        <a href="assistant.html" class="quick-link" data-tilt><span class="ql-title">Voice Assistant</span><span class="ql-sub">SPEAK TO ANY TOOL</span></a>
-        <a href="memory.html" class="quick-link" data-tilt><span class="ql-title">Knowledge Memory</span><span class="ql-sub">TOOL 01</span></a>
-        <a href="workshare.html" class="quick-link" data-tilt><span class="ql-title">AI WorkShare</span><span class="ql-sub">TOOL 02</span></a>
-        <a href="fairwage.html" class="quick-link" data-tilt><span class="ql-title">FairWage</span><span class="ql-sub">TOOL 03</span></a>
-        <a href="safety.html" class="quick-link" data-tilt><span class="ql-title">Safety Reporter</span><span class="ql-sub">TOOL 04</span></a>
-        <a href="grievance.html" class="quick-link" data-tilt><span class="ql-title">Helpline</span><span class="ql-sub">TOOL 05</span></a>
-      </div>
+    <div style="overflow-x:auto;">
+      <table style="width:100%; border-collapse:collapse; text-align:left; font-size:0.86rem;">
+        <thead style="background:var(--panel-dim); font-family:'IBM Plex Mono'; font-size:0.72rem; color:var(--ink-secondary); text-transform:uppercase;">
+          <tr>
+            <th style="padding:12px 16px;">District / State</th>
+            <th style="padding:12px 16px;">SC Population</th>
+            <th style="padding:12px 16px;">GIA Funds (Cr)</th>
+            <th style="padding:12px 16px;">Skilled / Placed</th>
+            <th style="padding:12px 16px;">Consultants</th>
+            <th style="padding:12px 16px;">Coordination Status</th>
+          </tr>
+        </thead>
+        <tbody id="plansTableBody">
+          <tr><td colspan="6" style="padding:20px; text-align:center;">Loading district perspective plans…</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
-</section>
+
+  <!-- Financial Consultants Directory -->
+  <div class="card">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;">
+      <div>
+        <h3 style="margin:0 0 4px; font-size:1.2rem;">Skilled Financial & Enterprise Consultants Directory</h3>
+        <p style="margin:0; font-size:0.86rem; color:var(--ink-secondary);">Employed under GIA to guide SC beneficiaries in micro-loan sanctions, DPR preparation, and Stand-Up India credit linkage.</p>
+      </div>
+      <span class="tag-num accent">GIA FIELD SPECIALISTS</span>
+    </div>
+
+    <div class="grid-2" id="consultantsContainer">
+      <div style="text-align:center; padding:20px;">Loading consultants…</div>
+    </div>
+  </div>
+</div>
 </main>
 
 <footer>
-  <span>SAATHI — MSME IDEA HACKATHON 6.0</span>
-  <span id="clock"></span>
+  <span>SAATHI — SMART INDIA HACKATHON 2026 (SIH26097)</span>
+  <span>MINISTRY OF SOCIAL JUSTICE AND EMPOWERMENT (MoSJE)</span>
 </footer>
 
 <script src="assets/js/api.js"></script>
 <script src="assets/js/app.js"></script>
 <script>
-Saathi.requireAuth();
-const user = Saathi.getUser();
-if (user) document.getElementById('greeting').textContent = "Welcome back, " + user.name.split(' ')[0];
-
-const ICONS = { memory:'📗', workshare:'🤝', fairwage:'₹', safety:'⚠', grievance:'✉' };
-
-async function loadDashboard(){
+async function loadGiaDashboard() {
   try {
-    const data = await Saathi.get('/dashboard/summary');
-    document.getElementById('statMemory').textContent = data.counts.memory;
-    document.getElementById('statWorkshare').textContent = data.counts.workshare;
-    document.getElementById('statFairwage').textContent = data.counts.fairwage;
-    document.getElementById('statSafety').textContent = data.counts.safety;
-    document.getElementById('statGrievance').textContent = data.counts.grievance;
+    const data = await Saathi.get('/gia/summary');
+    const k = data.kpis;
 
-    const feed = document.getElementById('activityFeed');
-    if (!data.activity.length){
-      feed.innerHTML = '<div class="empty-note">No activity yet — try the voice assistant to get started.</div>';
-    } else {
-      feed.innerHTML = data.activity.map(a => `
-        <div class="activity-item">
-          <span class="activity-dot"></span>
-          <span class="a-label">${a.label}</span>
-          <span class="a-time">${a.timeLabel}</span>
-        </div>`).join('');
-    }
-    try { gsap.from("#statGrid .stat-value", {textContent:0, duration:0.8, snap:{textContent:1}, stagger:0.08, ease:"power1.out"}); } catch(e) {}
-    try { gsap.from(".activity-item", {opacity:0, x:-14, duration:0.4, stagger:0.06, ease:"power2.out"}); } catch(e) {}
-  } catch (e) {
-    document.getElementById('activityFeed').innerHTML = `<div class="empty-note">${e.message}</div>`;
+    document.getElementById('kpiTarget').textContent = k.totalTarget.toLocaleString();
+    document.getElementById('kpiEnrolled').textContent = `Enrolled: ${k.totalEnrolled.toLocaleString()}`;
+    document.getElementById('kpiPlaced').textContent = k.totalPlaced.toLocaleString();
+    document.getElementById('kpiRate').textContent = `Placement Rate: ${k.placementRate}%`;
+    document.getElementById('kpiFund').textContent = `₹${k.totalFundAllocatedCr} Cr`;
+    document.getElementById('kpiUtil').textContent = `Utilized: ₹${k.totalFundUtilizedCr} Cr (${k.fundUtilizationRate}%)`;
+    document.getElementById('kpiBatches').textContent = k.activeBatches;
+
+    const plans = data.districtPlans || [];
+    document.getElementById('plansTableBody').innerHTML = plans.map(p => `
+      <tr style="border-bottom:1px solid var(--line);">
+        <td style="padding:14px 16px;">
+          <strong>${p.district}</strong><br>
+          <span style="font-size:0.75rem; color:var(--ink-secondary);">${p.state}</span>
+        </td>
+        <td style="padding:14px 16px; font-family:'IBM Plex Mono'; font-weight:600;">
+          ${p.scPopulationPercentage}%
+        </td>
+        <td style="padding:14px 16px;">
+          <strong>Allocated:</strong> ₹${p.totalGiaFundAllocatedCr} Cr<br>
+          <span style="font-size:0.75rem; color:#15803D;"><strong>Utilized:</strong> ₹${p.totalGiaFundUtilizedCr} Cr</span>
+        </td>
+        <td style="padding:14px 16px;">
+          <strong>${p.placedBeneficiaries}</strong> / ${p.targetBeneficiaries} Placed<br>
+          <div style="background:#E2E8F0; width:90px; height:5px; border-radius:99px; margin-top:4px; overflow:hidden;">
+            <div style="background:#15803D; width:${Math.round((p.placedBeneficiaries/p.targetBeneficiaries)*100)}%; height:100%;"></div>
+          </div>
+        </td>
+        <td style="padding:14px 16px; font-family:'IBM Plex Mono';">
+          ${p.assignedConsultants} Consultants
+        </td>
+        <td style="padding:14px 16px; font-size:0.8rem; color:${p.coordinationGaps.includes('None') ? '#15803D' : '#92400E'};">
+          ${p.coordinationGaps}
+        </td>
+      </tr>
+    `).join('');
+
+    const consultants = data.consultants || [];
+    document.getElementById('consultantsContainer').innerHTML = consultants.map(c => `
+      <div style="background:var(--panel-dim); border:1px solid var(--line); border-radius:10px; padding:16px;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+          <div>
+            <h4 style="margin:0 0 4px; font-size:1.05rem;">${c.name}</h4>
+            <div style="font-size:0.78rem; color:var(--ink-secondary);">${c.qualification}</div>
+            <div style="font-size:0.82rem; color:var(--primary); margin:6px 0;"><strong>Specialisation:</strong> ${c.specialisation}</div>
+          </div>
+          <span class="tag-num accent">${c.district}</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px; font-size:0.78rem; font-family:'IBM Plex Mono'; border-top:1px dashed var(--line); padding-top:8px;">
+          <span>Beneficiaries Supported: <strong>${c.activeBeneficiariesSupported}</strong></span>
+          <a href="tel:${c.phone}" style="color:var(--primary); font-weight:600;">📞 Contact Consultant</a>
+        </div>
+      </div>
+    `).join('');
+
+  } catch (err) {
+    console.error(err);
   }
 }
-loadDashboard();
-saathiInitTilt("[data-tilt]", 6);
+loadGiaDashboard();
 </script>
 </body>
 </html>
