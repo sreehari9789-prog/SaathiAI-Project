@@ -4,6 +4,8 @@
 const http = require('http');
 const https = require('https');
 const url = require('url');
+const fs = require('fs');
+const path = require('path');
 const store = require('./lib/store');
 const { hashPassword, verifyPassword, createToken, verifyToken } = require('./lib/auth');
 const { classifyIntent, guessMachineTag, extractTaskDetails, guessSeverity, findKnowledgeAnswer } = require('./lib/intent');
@@ -510,7 +512,32 @@ const server = http.createServer(async (req, res) => {
   if (req.method === 'OPTIONS') return send(res, 204, {});
 
   const match = routes.find(r => r.method === req.method && r.path === pathname);
-  if (!match) return send(res, 404, { error: `Endpoint ${pathname} not found on SAATHI API.` });
+  if (!match) {
+    if (!pathname.startsWith('/api')) {
+      const frontendDir = path.join(__dirname, '..', 'frontend');
+      let relPath = pathname === '/' ? '/index.html' : pathname;
+      let filePath = path.join(frontendDir, relPath);
+      if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
+        const ext = path.extname(filePath).toLowerCase();
+        const mimeTypes = {
+          '.html': 'text/html; charset=utf-8',
+          '.css': 'text/css',
+          '.js': 'application/javascript',
+          '.json': 'application/json',
+          '.png': 'image/png',
+          '.jpg': 'image/jpeg',
+          '.svg': 'image/svg+xml',
+          '.ico': 'image/x-icon'
+        };
+        res.writeHead(200, {
+          'Content-Type': mimeTypes[ext] || 'application/octet-stream',
+          'Access-Control-Allow-Origin': '*'
+        });
+        return fs.createReadStream(filePath).pipe(res);
+      }
+    }
+    return send(res, 404, { error: `Endpoint ${pathname} not found on SAATHI API.` });
+  }
 
   const body = (req.method === 'POST' || req.method === 'PUT') ? await readBody(req) : {};
   const user = getUser(req);
