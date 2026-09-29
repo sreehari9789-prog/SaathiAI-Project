@@ -1,12 +1,9 @@
 {
-  "version": 2,
-  "cleanUrls": true,
-  "routes": [
-    { "handle": "filesystem" },
-    { "src": "^/assets/(.*)", "dest": "/frontend/assets/$1" },
-    { "src": "^/([a-zA-Z0-9_-]+)\\.html", "dest": "/frontend/$1.html" },
-    { "src": "^/([a-zA-Z0-9_-]+)$", "dest": "/frontend/$1.html" },
-    { "src": "^/$", "dest": "/frontend/index.html" },
-    { "src": "^/(.*)", "dest": "/frontend/$1" }
+  "rewrites": [
+    { "source": "/", "destination": "/frontend/index.html" },
+    { "source": "/assets/(.*)", "destination": "/frontend/assets/$1" },
+    { "source": "/:page.html", "destination": "/frontend/:page.html" },
+    { "source": "/:page", "destination": "/frontend/:page.html" },
+    { "source": "/(.*)", "destination": "/frontend/$1" }
   ]
 }
