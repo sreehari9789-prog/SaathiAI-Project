@@ -1,6 +1,6 @@
 /* ============================================================
    SAATHI — Universal Multilingual Voice Engine (ASR + TTS)
-   Smart India Hackathon 2026 — MoSJE PM-AJAY (SIH26097)
+   PM-AJAY LIVELIHOOD MISSION — MoSJE PM-AJAY 
    Speech Recognition + Synthesis across all Indian Languages
    ============================================================ */
 

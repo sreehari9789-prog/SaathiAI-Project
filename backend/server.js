@@ -1,5 +1,5 @@
 // SAATHI — Backend Server (Zero external dependencies)
-// Smart India Hackathon 2026 — Problem Statement SIH26097
+// PM-AJAY LIVELIHOOD MISSION — Problem Statement PM-AJAY
 // Ministry of Social Justice and Empowerment (MoSJE) — PM-AJAY GIA Component
 const http = require('http');
 const https = require('https');
@@ -101,7 +101,7 @@ function route(method, path, handler, opts = {}) { routes.push({ method, path, h
 route('GET', '/api/health', async (req, res) => send(res, 200, {
   ok: true,
   service: 'saathi-pm-ajay-backend',
-  hackathon: 'SIH26097 - MoSJE PM-AJAY',
+  hackathon: 'MoSJE PM-AJAY',
   time: new Date().toISOString()
 }));
 

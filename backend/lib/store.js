@@ -1,5 +1,5 @@
 // Tiny JSON-file persistence layer. Zero external dependencies.
-// Aligned with SIH26097 — MoSJE PM-AJAY Livelihood Mapping & NSQF Recommendations
+// Aligned with MoSJE PM-AJAY Livelihood Mapping & NSQF Recommendations
 const fs = require('fs');
 const path = require('path');
 
