@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Voice Assistant — SAATHI PM-AJAY </title>
+<title>Voice Assistant — SAATHI PM-AJAY Livelihood Mission</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
@@ -13,7 +13,7 @@
 
 <div class="gov-ribbon">
   <span>GOVERNMENT OF INDIA • MINISTRY OF SOCIAL JUSTICE AND EMPOWERMENT (MoSJE)</span>
-  <span>PM-AJAY GIA COMPONENT | PM-AJAY</span>
+  <span>PM-AJAY GIA COMPONENT</span>
 </div>
 
 <div class="topbar">
@@ -38,9 +38,9 @@
 
 <main>
 <div class="page-hero">
-  <span class="tag-num accent">FEATURE 02 & 07 • MULTILINGUAL ASR + TTS</span>
+  <span class="tag-num accent">MULTILINGUAL ASR + TTS ENGINE</span>
   <h1>AI Multilingual Voice Assistant</h1>
-  <p>Speak naturally in your mother tongue or local dialect. SAATHI listens, understands code-mixed speech, guides your livelihood options, and speaks the answer right back to you in your language.</p>
+  <p>Speak naturally in your mother tongue or local dialect. SAATHI recognizes spoken speech in all Indian languages, finds aligned livelihood opportunities, and speaks the answer right back to you.</p>
   
   <div class="tool-pills">
     <span class="tool-pill current">🎙️ Voice Assistant</span>
@@ -57,22 +57,35 @@
 <div class="assistant-shell">
   <div class="assistant-console" id="consoleCard">
     <div class="console-label">
-      <span>AI VOICE ENGINE (BHASHINI / WEB SPEECH)</span>
-      <select class="lang-select" id="langSelect" aria-label="Select Spoken Language">
-        <option value="auto">🌐 Auto-detect Language</option>
-        <option value="hi-IN">हिन्दी (Hindi)</option>
-        <option value="ta-IN">தமிழ் (Tamil)</option>
-        <option value="te-IN">తెలుగు (Telugu)</option>
-        <option value="kn-IN">ಕನ್ನಡ (Kannada)</option>
-        <option value="bn-IN">বাংলা (Bengali)</option>
-        <option value="mr-IN">मराठी (Marathi)</option>
-        <option value="gu-IN">ગુજરાતી (Gujarati)</option>
-        <option value="pa-IN">ਪੰਜਾਬੀ (Punjabi)</option>
-        <option value="ml-IN">മലയാളം (Malayalam)</option>
-        <option value="ur-IN">اردو (Urdu)</option>
-        <option value="or-IN">ଓଡ଼ିଆ (Odia)</option>
-        <option value="en-IN">English (Indian)</option>
-      </select>
+      <span>AI VOICE ENGINE (WEB SPEECH + BHASHINI NLU)</span>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span id="serverStatus" style="font-size:0.72rem; color:#4ADE80; font-family:'IBM Plex Mono';">● AI Cloud Online</span>
+        <select class="lang-select" id="langSelect" aria-label="Select Spoken Language">
+          <option value="hi-IN" selected>हिन्दी (Hindi)</option>
+          <option value="ta-IN">தமிழ் (Tamil)</option>
+          <option value="te-IN">తెలుగు (Telugu)</option>
+          <option value="kn-IN">ಕನ್ನಡ (Kannada)</option>
+          <option value="bn-IN">বাংলা (Bengali)</option>
+          <option value="mr-IN">मराठी (Marathi)</option>
+          <option value="gu-IN">ગુજરાતી (Gujarati)</option>
+          <option value="pa-IN">ਪੰਜਾਬੀ (Punjabi)</option>
+          <option value="ml-IN">മലയാളം (Malayalam)</option>
+          <option value="ur-IN">اردو (Urdu)</option>
+          <option value="or-IN">ଓଡ଼ିଆ (Odia)</option>
+          <option value="en-IN">English (Indian)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Quick Language Selector Chips -->
+    <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:6px; margin-bottom:14px;">
+      <button type="button" class="btn btn-sm btn-ghost" onclick="setLanguage('hi-IN')" style="color:#fff; border-color:#475569; font-size:0.72rem; height:30px; padding:0 10px;">हिन्दी</button>
+      <button type="button" class="btn btn-sm btn-ghost" onclick="setLanguage('ta-IN')" style="color:#fff; border-color:#475569; font-size:0.72rem; height:30px; padding:0 10px;">தமிழ்</button>
+      <button type="button" class="btn btn-sm btn-ghost" onclick="setLanguage('te-IN')" style="color:#fff; border-color:#475569; font-size:0.72rem; height:30px; padding:0 10px;">తెలుగు</button>
+      <button type="button" class="btn btn-sm btn-ghost" onclick="setLanguage('kn-IN')" style="color:#fff; border-color:#475569; font-size:0.72rem; height:30px; padding:0 10px;">ಕನ್ನಡ</button>
+      <button type="button" class="btn btn-sm btn-ghost" onclick="setLanguage('bn-IN')" style="color:#fff; border-color:#475569; font-size:0.72rem; height:30px; padding:0 10px;">বাংলা</button>
+      <button type="button" class="btn btn-sm btn-ghost" onclick="setLanguage('mr-IN')" style="color:#fff; border-color:#475569; font-size:0.72rem; height:30px; padding:0 10px;">मराठी</button>
+      <button type="button" class="btn btn-sm btn-ghost" onclick="setLanguage('en-IN')" style="color:#fff; border-color:#475569; font-size:0.72rem; height:30px; padding:0 10px;">English</button>
     </div>
 
     <!-- Animated Waveform Visualizer -->
@@ -88,12 +101,12 @@
     </div>
 
     <div class="btn-wrap">
-      <button class="mic-btn" id="micBtn" aria-label="Push to talk">
+      <button class="mic-btn" id="micBtn" aria-label="Push to talk" title="Click to speak">
         <svg viewBox="0 0 24 24"><path d="M12 14a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v5a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11h-2z"/></svg>
       </button>
     </div>
 
-    <div class="status-line" id="statusLine">Tap the microphone to speak in any Indian language</div>
+    <div class="status-line" id="statusLine">Click microphone and speak in any language</div>
 
     <div class="readout" id="readout">
       <span class="placeholder">Your words will appear here as you speak…</span>
@@ -106,20 +119,27 @@
     <div class="reply-box" id="replyBox">
       <div class="reply-label">
         <span>🤖 SAATHI SPOKEN RESPONSE</span>
+        <button type="button" class="btn btn-sm btn-ghost" onclick="replayLastResponse()" style="color:#fff; border-color:rgba(255,255,255,0.2); font-size:0.7rem; height:26px; padding:0 8px; margin-left:auto;">
+          🔊 Replay Voice
+        </button>
       </div>
       <div class="reply-text" id="replyText"></div>
     </div>
 
     <div class="text-fallback">
-      <input type="text" id="typeInput" placeholder="Or type your livelihood question here in any language…">
+      <input type="text" id="typeInput" placeholder="Or type your question here in any Indian language…">
       <button class="btn btn-accent" id="typeSendBtn">Ask AI</button>
+      <button class="btn btn-ghost" id="playGreetingBtn" type="button" style="color:#E2E8F0; border-color:#475569;" title="Hear greeting in chosen language">
+        🔊 Hear Greeting
+      </button>
     </div>
   </div>
 
+  <!-- Interactive Dialogue History -->
   <h3 style="margin: 36px 0 14px; font-size: 1.25rem;">Interactive Dialogue History</h3>
   <div class="conv-list" id="convList">
     <div class="conv-item" style="color:var(--ink-secondary); text-align:center; padding: 28px;">
-      No voice queries recorded in this session yet. Tap the microphone above to start talking!
+      No voice queries recorded in this session yet. Tap the microphone above to speak or click "Hear Greeting"!
     </div>
   </div>
 </div>
@@ -143,10 +163,37 @@ const replyBox = document.getElementById('replyBox');
 const replyText = document.getElementById('replyText');
 const typeInput = document.getElementById('typeInput');
 const typeSendBtn = document.getElementById('typeSendBtn');
+const playGreetingBtn = document.getElementById('playGreetingBtn');
 const convList = document.getElementById('convList');
+const serverStatus = document.getElementById('serverStatus');
 
 let recognizing = false;
+let lastSpokenReply = '';
+let lastSpokenLang = 'hi-IN';
 const conversation = [];
+
+// Check backend health on load
+async function checkBackendConnection() {
+  try {
+    const res = await Saathi.get('/health');
+    if (res && res.ok) {
+      serverStatus.textContent = '● AI Cloud Online';
+      serverStatus.style.color = '#4ADE80';
+    }
+  } catch (e) {
+    serverStatus.textContent = '○ Connecting to AI Server…';
+    serverStatus.style.color = '#FBBF24';
+  }
+}
+checkBackendConnection();
+
+function setLanguage(code) {
+  langSelect.value = code;
+  statusLine.textContent = `Language changed to ${getLangName(code)}. Tap mic to speak.`;
+  if (LANG_CONFIG[code] && LANG_CONFIG[code].sample) {
+    typeInput.placeholder = `e.g. "${LANG_CONFIG[code].sample}"`;
+  }
+}
 
 function renderConversation() {
   if (conversation.length === 0) return;
@@ -163,7 +210,7 @@ function renderConversation() {
           <strong>SAATHI:</strong> ${c.reply}
         </div>
         <a href="${c.featurePage || meta.page}" class="conv-tool-link" style="color:${meta.color};">
-          ${meta.icon || '🔗'} Open Aligned PM-AJAY Tool (${c.featureLabel || meta.label}) →
+          ${meta.icon || '🔗'} Open Aligned Tool (${c.featureLabel || meta.label}) →
         </a>
       </div>
     `;
@@ -185,6 +232,8 @@ async function handleSpeech(text) {
 
     // Speak out response back in the user's spoken/detected language
     const ttsLang = res.detectedLang || selectedLang;
+    lastSpokenReply = res.replyText;
+    lastSpokenLang = ttsLang;
     saathiSpeak(res.replyText, ttsLang);
 
     statusLine.textContent = "Spoken response delivered in " + getLangName(ttsLang);
@@ -203,40 +252,45 @@ async function handleSpeech(text) {
   }
 }
 
+function replayLastResponse() {
+  if (lastSpokenReply) {
+    saathiSpeak(lastSpokenReply, lastSpokenLang);
+  }
+}
+
 const recognizer = saathiCreateRecognizer({
   onStart() {
     recognizing = true;
     micBtn.classList.add('listening');
-    statusLine.textContent = "Listening… Speak freely in your language";
+    statusLine.textContent = `🎙️ Listening in ${getLangName(langSelect.value)}… Speak clearly into microphone`;
     intentBadge.style.display = 'none';
     replyBox.classList.remove('show');
   },
   onInterim(text) {
-    readout.innerHTML = text;
+    readout.innerHTML = `<span>${text}</span>`;
   },
   onError(e) {
-    statusLine.textContent = "Microphone error or permission denied. Please allow microphone in browser or type below.";
     recognizing = false;
     micBtn.classList.remove('listening');
+    if (e && e.error === 'not-allowed') {
+      statusLine.textContent = "Microphone access blocked. Click the lock/tune icon in Chrome's address bar to allow Microphone.";
+    } else {
+      statusLine.textContent = "Microphone paused. Tap to speak or type your question below.";
+    }
   },
   onEnd(finalText) {
     recognizing = false;
     micBtn.classList.remove('listening');
-    if (!finalText) {
-      statusLine.textContent = "Tap the microphone to speak in any Indian language";
+    if (!finalText || finalText.trim() === '') {
+      statusLine.textContent = "No speech detected. Tap the microphone to try again.";
       return;
     }
+    readout.innerHTML = `"${finalText}"`;
     handleSpeech(finalText);
   }
 });
 
-// Dropdown change immediately triggers greeting in chosen language
-langSelect.addEventListener('change', () => {
-  statusLine.textContent = "Greeting in " + getLangName(langSelect.value) + "…";
-  saathiGreet(langSelect.value);
-});
-
-// Mic click triggers greeting then starts recognition
+// Mic click starts recognition synchronously in user click gesture context
 micBtn.addEventListener('click', () => {
   if (!recognizer) {
     statusLine.textContent = "Speech recognition is not supported in this browser. Please type below.";
@@ -246,18 +300,27 @@ micBtn.addEventListener('click', () => {
     recognizer.stop();
     return;
   }
-  readout.innerHTML = '<span class="placeholder">Listening…</span>';
-  statusLine.textContent = "Greeting in " + getLangName(langSelect.value) + "…";
-  saathiGreet(langSelect.value, () => {
-    statusLine.textContent = "Listening… speak now in your mother tongue";
-    recognizer.start(langSelect.value);
-  });
+  
+  // Cancel any ongoing speech synthesis so audio doesn't interfere
+  window.speechSynthesis.cancel();
+  
+  readout.innerHTML = '<span class="placeholder">Listening… Speak now</span>';
+  recognizer.start(langSelect.value);
+});
+
+playGreetingBtn.addEventListener('click', () => {
+  statusLine.textContent = "Playing voice greeting in " + getLangName(langSelect.value) + "…";
+  saathiGreet(langSelect.value);
+});
+
+langSelect.addEventListener('change', () => {
+  setLanguage(langSelect.value);
 });
 
 typeSendBtn.addEventListener('click', () => {
   const text = typeInput.value.trim();
   if (!text) return;
-  readout.innerHTML = text;
+  readout.innerHTML = `"${text}"`;
   typeInput.value = '';
   handleSpeech(text);
 });

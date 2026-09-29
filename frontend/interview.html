@@ -300,6 +300,7 @@ micBtn.addEventListener('click', () => {
   if (recognizing) {
     recognizer.stop();
   } else {
+    window.speechSynthesis.cancel();
     recognizer.start(interviewLang.value);
   }
 });
